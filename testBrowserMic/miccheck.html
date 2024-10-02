@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <button onclick="startRecording()">Start Test Recording</button>
+  <button onclick="stopRecording()">Stop Test Recording</button>
+  <audio id="audioPlayback" controls></audio>
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+
+    async function startRecording() {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = (event) => {
+        audioChunks.push(event.data);
+      };
+
+      mediaRecorder.start();
+    }
+
+    function stopRecording() {
+      mediaRecorder.stop();
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const audioURL = URL.createObjectURL(audioBlob);
+        document.getElementById('audioPlayback').src = audioURL;
+        audioChunks = []; // Reset audio chunks for the next recording
+      };
+    }
+  </script>
+</body>
+</html>
