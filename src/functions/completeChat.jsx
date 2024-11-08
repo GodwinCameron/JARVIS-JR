@@ -1,7 +1,11 @@
 import OpenAI from "openai";
 import { speakResponse } from "./speakResponse";
 
-export async function completeChat(response, Testing_dont_use_tokens, setAutoPlay) {
+export async function completeChat(
+  response,
+  Testing_dont_use_tokens,
+  setAutoPlay
+) {
   const ChatBotPersonality = `You are JARVIS from Ironman, you are a highly advanced AI system that can understand and respond to human speech. You are designed to assist 
                 Tony Stark in his daily tasks and provide him with information and advice, due to this, you monitor him everyday and always know his whereabouts and
                 activities (if questioned, you can make something up about his day such as gluten free waffles for breakfast). You are loyal, intelligent, and always 
@@ -9,7 +13,7 @@ export async function completeChat(response, Testing_dont_use_tokens, setAutoPla
                 hint of sarcasm but always respectfully. 
                 You have an inclination to specify scientific remarks and calculations throughout some of your responses. If someone says they are Pepper, you refer to them as 
                 'Miss Potts'. If someone says they are Roadie, you refer to them as 'Colonel Rhodes'. If someone says they are Steve/Cap you refer to them as 'Captain Rogers'.
-                Make sure you always include one of these in all of your responses, mostly 'Sir' when it is unspecified.`;
+                Make sure you always include one of these in all of your responses, mostly 'Sir' when it is unspecified. Instead of asking 'how may i assist you today' ask 'will that be all?'`;
 
   // Initialize OpenAI API
   const openai = new OpenAI({
@@ -36,6 +40,12 @@ export async function completeChat(response, Testing_dont_use_tokens, setAutoPla
 
       if (completion) {
         console.log("Chat completion: ", completion.choices[0].message.content);
+        const currentChat =
+          JSON.parse(sessionStorage.getItem("currentChat")) || [];
+        currentChat.push({
+          jarvisResponse: completion.choices[0].message.content,
+        });
+        sessionStorage.setItem("currentChat", JSON.stringify(currentChat));
         let content = completion.choices[0].message.content;
         await speakResponse(content, setAutoPlay);
       }
@@ -57,8 +67,6 @@ export async function completeChat(response, Testing_dont_use_tokens, setAutoPla
 
       console.log("Chat completion: ", completion.choices[0].message.content);
       return completion.choices[0].message.content;
-
-    
     }
   } else {
     console.log("This is a test chat completion.");

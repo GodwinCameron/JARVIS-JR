@@ -11,7 +11,9 @@ export const stopRecording = async (
   setAutoPlay,
   setOptions,
   setHudInterface,
-  setDocs
+  setDocs,
+  showChat,
+  setShowChat
 ) => {
   mediaRecorderRef.current.stop();
   // <---- Wait for the media recorder to fully stop before creating the blob
@@ -33,7 +35,9 @@ export const stopRecording = async (
       setAutoPlay,
       setOptions,
       setHudInterface,
-      setDocs
+      setDocs,
+      showChat,
+      setShowChat
     );
     audioChunksRef.current = [];
 

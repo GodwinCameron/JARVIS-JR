@@ -1,11 +1,11 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
-body{
+body {
   background-color: rgb(7, 18, 25);
 }
-a{
+a {
   text-decoration: none;
 }
 
@@ -13,12 +13,12 @@ a{
   text-align: center;
 }
 
-.jarvis{
+.jarvis {
   display: flex;
   border-radius: 50%;
   width: 150px;
   height: 150px;
-  background-image: url('./assets/orb.png');
+  background-image: url("./assets/orb.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,16 +27,15 @@ a{
 
 .jarvis:hover {
   scale: 1.1;
-  box-shadow: #01F4FF 0px 0px 10px 4px;
+  box-shadow: #01f4ff 0px 0px 10px 4px;
 }
 
-
-.jarvis-record{
+.jarvis-record {
   display: flex;
   border-radius: 50%;
   width: 100px;
   height: 100px;
-  background-image: url('./assets/record.png');
+  background-image: url("./assets/record.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -46,12 +45,12 @@ a{
   scale: 1.1;
 }
 
-.jarvis-process{
+.jarvis-process {
   display: flex;
   border-radius: 50%;
   width: 100px;
   height: 100px;
-  background-image: url('./assets/process.png');
+  background-image: url("./assets/process.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -61,54 +60,50 @@ a{
   scale: 1.1;
 }
 
-
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .jarvis {
-    animation: App-logo-spin infinite 21s linear;
-  }
-  .jarvis-record {
-    animation: App-logo-spin reverse infinite 35s linear;
-  }
-  .jarvis-process {
-    animation: App-logo-spin 2 1s ease-out, App-logo-spin 3 2s ease-out, App-logo-spin 4 1s ease-out, App-logo-spin 6 2s ease-out;
-  }
+.jarvis {
+  animation: App-logo-spin infinite 21s linear;
+}
+.jarvis-record {
+  animation: App-logo-spin reverse infinite 35s linear;
+}
+.jarvis-process {
+  animation: App-logo-spin 2 1s ease-out, App-logo-spin 3 2s ease-out,
+    App-logo-spin 4 1s ease-out, App-logo-spin 6 2s ease-out;
 }
 
-.welcome-message{
+.welcome-message {
   display: flex;
   flex-direction: column;
   gap: 1vh;
   margin-bottom: 3.5vh;
   font-size: 12px;
-  color: #01F4FF;
+  color: #01f4ff;
   margin-top: 1rem;
   font-family: monospace;
-  border: 1px solid #01F4FF;
+  border: 1px solid #01f4ff;
   border-radius: 7px;
   padding: 10px;
 }
-.welcome-sub{
+.welcome-sub {
   font-size: 9px;
 }
-.welcome-message:hover{
+.welcome-message:hover {
   scale: 1.05;
   cursor: pointer;
 }
 
-.hide{
+.hide {
   display: none;
 }
 
-
 .App-header {
   min-height: 100vh;
-  box-shadow: inset 0px 0px 50px 2px #01F4FF;
+  box-shadow: inset 0px 0px 50px 2px #01f4ff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,43 +125,39 @@ a{
   }
 }
 
-
-
-
-
-.work-area{
+.work-area {
   display: flex;
   flex-direction: row;
 }
-.column{
+.column {
   display: flex;
   flex-direction: column;
   gap: 2vh;
   margin: 2vh;
 }
 
-.more-options{
+.more-options {
   display: flex;
   flex-direction: row;
   gap: 2vw;
   margin-top: 3.5vh;
   font-size: 12px;
-  color: #01F4FF;
+  color: #01f4ff;
   font-family: monospace;
-  border: 1px solid #01F4FF;
+  border: 1px solid #01f4ff;
   border-radius: 7px;
   padding: 20px;
 }
-.docs{
+.docs {
   padding: 10px;
   text-decoration: none;
 }
-.docs:hover{
+.docs:hover {
   scale: 1.05;
   cursor: pointer;
   color: #01f2ff7c;
 }
-.option{
+.option {
   display: flex;
   flex-direction: column;
   max-width: 100px;
@@ -174,48 +165,132 @@ a{
   align-items: center;
   justify-content: center;
 }
-.option:hover{
+.option:hover {
   scale: 1.05;
   cursor: pointer;
   color: #01f2ff7c;
 }
 
-
-
-.chat-box{
+.chat-box {
   font-family: monospace;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   gap: 1vh;
-  margin: 2vh;
+  margin-top: 2vh;
   padding: 10px;
-  border: 1px solid #01F4FF;
+  border: 1px solid #01f4ff;
   border-radius: 7px;
   max-width: 350px;
   max-height: 300px;
-  overflow-y: auto;
-  color: #01F4FF;
+  color: #01f4ff;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: scroll;
+  scroll-margin-bottom: auto;
+  scroll-behavior: smooth;
 }
-.chat-title{
+.chat-box {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.saveText {
+  font-size: 9px;
+  color: #ffffff;
+}
+.saveText:hover {
+  cursor: pointer;
+  color: #01f2ff7c;
+}
+.chat-title {
   font-size: 12px;
-  color: #01F4FF;
+  color: #01f4ff;
 }
-.chat-subtitle{
+.chat-subtitle {
   font-size: 10px;
-  color: #01F4FF;
+  color: #01f4ff;
 }
-.chat-systemText{
+.chat-systemText {
   font-size: 7px;
-  color: #01F4FF;
+  color: #01f4ff;
 }
-.chat-userText{
+.chat-userText {
   font-size: 10px;
   color: #cafbfe;
   font-style: italic;
 }
-.chat-jarvisText{
+.chat-jarvisText {
   font-size: 10px;
-  color: #01F4FF;
+  color: #01f4ff;
+}
+
+
+
+code{
+  font-family: "Courier New", Courier, monospace;
+  background-color: #232323;
+  padding: 5px;
+  border: 1px solid #ccc;
+  display: block;
+  color: #e6e6e6;
+  text-align: left;
+  white-space: pre;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  max-width: 350px;
+}
+
+
+
+.launch-options {
+  display: flex;
+  flex-direction: column;
+  position: fixed; /* Keeps it in a fixed position over other elements */
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #01f4ff;
+  align-items: center; 
+  justify-content: center; 
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.show-live-chat-options{
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+}
+.show-live-chat-options-choice{
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1vh;
+  margin-top: 2vh;
+  padding: 10px;
+  border: 1px solid #01f4ff;
+  border-radius: 7px;
+  width: 200px;
+  height: 100px;
+}
+.disable-red{
+  border: 1px solid red;
+  color: red;
+}
+
+.show-live-chat-options-choice:hover{
+  scale: 1.05;
+  cursor: pointer;
+  color: black;
+  background-color: #01f2ff5e;
+}
+.disable-red:hover{
+  background-color: rgba(255, 0, 0, 0.315);
 }
 
