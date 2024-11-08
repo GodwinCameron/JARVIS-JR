@@ -1,21 +1,67 @@
-.App {
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  background-color: rgb(7, 18, 25);
+}
+a{
+  text-decoration: none;
+}
+
+.main {
   text-align: center;
 }
 
 .jarvis{
   display: flex;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  /* background colour radial gradient */
-  background: radial-gradient(at 100px 50px, rgb(99, 239, 255) 0%, rgba(29, 146, 255, 0) 100%);
+  width: 150px;
+  height: 150px;
+  background-image: url('./assets/orb.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 
 .jarvis:hover {
   scale: 1.1;
-  box-shadow: #61dafb 0px 0px 100px 5px;
+  box-shadow: #01F4FF 0px 0px 10px 4px;
 }
+
+
+.jarvis-record{
+  display: flex;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-image: url('./assets/record.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.jarvis-record:hover {
+  scale: 1.1;
+}
+
+.jarvis-process{
+  display: flex;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-image: url('./assets/process.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.jarvis-process:hover {
+  scale: 1.1;
+}
+
+
 
 .App-logo {
   height: 40vmin;
@@ -24,13 +70,45 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .jarvis {
-    animation: App-logo-spin infinite 11s linear;
+    animation: App-logo-spin infinite 21s linear;
+  }
+  .jarvis-record {
+    animation: App-logo-spin reverse infinite 35s linear;
+  }
+  .jarvis-process {
+    animation: App-logo-spin 2 1s ease-out, App-logo-spin 3 2s ease-out, App-logo-spin 4 1s ease-out, App-logo-spin 6 2s ease-out;
   }
 }
 
+.welcome-message{
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  margin-bottom: 3.5vh;
+  font-size: 12px;
+  color: #01F4FF;
+  margin-top: 1rem;
+  font-family: monospace;
+  border: 1px solid #01F4FF;
+  border-radius: 7px;
+  padding: 10px;
+}
+.welcome-sub{
+  font-size: 9px;
+}
+.welcome-message:hover{
+  scale: 1.05;
+  cursor: pointer;
+}
+
+.hide{
+  display: none;
+}
+
+
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
+  box-shadow: inset 0px 0px 50px 2px #01F4FF;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,3 +129,93 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+.work-area{
+  display: flex;
+  flex-direction: row;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  margin: 2vh;
+}
+
+.more-options{
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  margin-top: 3.5vh;
+  font-size: 12px;
+  color: #01F4FF;
+  font-family: monospace;
+  border: 1px solid #01F4FF;
+  border-radius: 7px;
+  padding: 20px;
+}
+.docs{
+  padding: 10px;
+  text-decoration: none;
+}
+.docs:hover{
+  scale: 1.05;
+  cursor: pointer;
+  color: #01f2ff7c;
+}
+.option{
+  display: flex;
+  flex-direction: column;
+  max-width: 100px;
+  gap: 1vh;
+  align-items: center;
+  justify-content: center;
+}
+.option:hover{
+  scale: 1.05;
+  cursor: pointer;
+  color: #01f2ff7c;
+}
+
+
+
+.chat-box{
+  font-family: monospace;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1vh;
+  margin: 2vh;
+  padding: 10px;
+  border: 1px solid #01F4FF;
+  border-radius: 7px;
+  max-width: 350px;
+  max-height: 300px;
+  overflow-y: auto;
+  color: #01F4FF;
+}
+.chat-title{
+  font-size: 12px;
+  color: #01F4FF;
+}
+.chat-subtitle{
+  font-size: 10px;
+  color: #01F4FF;
+}
+.chat-systemText{
+  font-size: 7px;
+  color: #01F4FF;
+}
+.chat-userText{
+  font-size: 10px;
+  color: #cafbfe;
+  font-style: italic;
+}
+.chat-jarvisText{
+  font-size: 10px;
+  color: #01F4FF;
+}
+
