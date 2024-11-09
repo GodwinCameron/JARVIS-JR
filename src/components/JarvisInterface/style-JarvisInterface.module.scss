@@ -1,0 +1,195 @@
+@media (max-width: 768px) {
+  .launchOptions {
+    font-size: 14px;
+    padding: 15px;
+    .showLiveChatOptions {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}
+
+.main {
+  text-align: center;
+  .appHeader {
+    min-height: 100vh;
+    box-shadow: inset 0px 0px 20px 4px #01f4ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    .welcomeMessage {
+      display: flex;
+      flex-direction: column;
+      gap: 1vh;
+      margin-bottom: 3.5vh;
+      font-size: 12px;
+      color: #01f4ff;
+      margin-top: 1rem;
+      font-family: monospace;
+      border: 1px solid #01f4ff;
+      border-radius: 7px;
+      padding: 10px;
+      .welcomSubText {
+        font-size: 9px;
+      }
+    }
+    .appLogo {
+      height: 40vmin;
+      pointer-events: none;
+    }
+    .jarvis {
+      display: flex;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      background-image: url("../../assets/orb.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: #01f4ff 0px 0px 10px 4px;
+        cursor: pointer;
+      }
+      animation: App-logo-spin infinite 21s linear;
+    }
+    .jarvisTurbo{
+        background-image: url("../../assets/turbo.png");
+    }
+    .jarvisProcessing {
+      display: flex;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      background-image: url("../../assets/process.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: App-logo-spin 2 1s ease-out, App-logo-spin 3 2s ease-out,
+        App-logo-spin 4 1s ease-out, App-logo-spin 6 2s ease-out;
+    }
+    .jarvisRecord {
+      display: flex;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      background-image: url("../../assets/record.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.1);
+      }
+      animation: App-logo-spin reverse infinite 35s linear;
+    }
+
+    .workArea {
+      display: flex;
+      flex-direction: row;
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        margin: 2vh;
+        .moreOptions {
+          display: flex;
+          flex-direction: row;
+          gap: 2vw;
+          margin-top: 3.5vh;
+          font-size: 12px;
+          color: #01f4ff;
+          font-family: monospace;
+          border: 1px solid #01f4ff;
+          border-radius: 7px;
+          padding: 20px;
+          .option {
+            display: flex;
+            flex-direction: column;
+            max-width: 100px;
+            gap: 1vh;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              scale: 1.05;
+              cursor: pointer;
+              color: #01f2ff7c;
+            }
+          }
+        }
+        .docs {
+          padding: 10px;
+          text-decoration: none;
+          &:hover {
+            scale: 1.05;
+            cursor: pointer;
+            color: #01f2ff7c;
+          }
+        }
+      }
+    }
+  }
+  .appHeaderTurbo{
+    box-shadow: inset 0px 0px 20px 4px #FF4D00 !important;
+  }
+  .launchOptions {
+    display: flex;
+    flex-direction: column;
+    position: fixed; /* Keeps it in a fixed position over other elements */
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #01f4ff;
+    align-items: center;
+    justify-content: center;
+    font-family: "Courier New", Courier, monospace;
+    .showLiveChatOptions {
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+    }
+    .showLiveChatOptionsChoice {
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1vh;
+      margin-top: 2vh;
+      padding: 10px;
+      border: 1px solid #01f4ff;
+      border-radius: 7px;
+      width: 200px;
+      height: 100px;
+    }
+    .disableRed {
+      border: 1px solid red;
+      color: red;
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.315);
+      }
+    }
+    &:hover {
+      scale: 1.05;
+      cursor: pointer;
+      color: black;
+      background-color: #01f2ff5e;
+    }
+
+    @keyframes App-logo-spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

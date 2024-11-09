@@ -3,7 +3,7 @@
   padding: 0;
 }
 body {
-  background-color: rgb(7, 18, 25);
+  background-color: rgb(5, 11, 15);
 }
 a {
   text-decoration: none;
@@ -181,7 +181,7 @@ a {
   padding: 10px;
   border: 1px solid #01f4ff;
   border-radius: 7px;
-  max-width: 350px;
+  max-width: 360px;
   max-height: 300px;
   color: #01f4ff;
   text-align: left;
@@ -190,10 +190,37 @@ a {
   overflow: scroll;
   scroll-margin-bottom: auto;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
-.chat-box {
+.no-scroll {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
+}
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 12px;      /* for vertical scrollbar */
+  height: 12px;     /* for horizontal scrollbar */
+}
+
+/* The track of the scrollbar */
+::-webkit-scrollbar-track {
+  background: rgb(5, 11, 15); /* Set the background color */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* The draggable part of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: #01f4ff; /* Color of the scrollbar */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Change color on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cafbfe; /* Darker color on hover */
+}
+.chatSection{
+  display: flex;
+  flex-direction: row;
 }
 
 .saveText {

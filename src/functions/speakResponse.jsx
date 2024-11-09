@@ -1,7 +1,6 @@
 import OpenAI from "openai";
 
 export async function speakResponse(content, setAutoPlay) {
-    
     // Initialize OpenAI API
   const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,

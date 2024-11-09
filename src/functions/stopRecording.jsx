@@ -13,7 +13,12 @@ export const stopRecording = async (
   setHudInterface,
   setDocs,
   showChat,
-  setShowChat
+  setShowChat,
+  setShowIframe,
+  setMusicRequestUrl,
+  setTurboMode,
+  turboMode,
+  setPlayTurboSound
 ) => {
   mediaRecorderRef.current.stop();
   // <---- Wait for the media recorder to fully stop before creating the blob
@@ -25,11 +30,9 @@ export const stopRecording = async (
 
     const audioURL = URL.createObjectURL(audioBlob);
     setAudioURL(audioURL);
-    //   document.getElementById("audioPlayback").src = audioURL;
-
     
     // Send the recorded audio to the OpenAI API for transcription
-    const transcriptionResult = await transcribeAudio(
+    await transcribeAudio(
       audioBlob,
       Testing_dont_use_tokens,
       setAutoPlay,
@@ -37,10 +40,13 @@ export const stopRecording = async (
       setHudInterface,
       setDocs,
       showChat,
-      setShowChat
+      setShowChat,
+      setShowIframe,
+      setMusicRequestUrl,
+      setTurboMode,
+      turboMode,
+      setPlayTurboSound
     );
     audioChunksRef.current = [];
-
-    //   setTranscription(transcriptionResult);
   };
 };

@@ -1,28 +1,40 @@
-export const JarvisMessageComponent = ({ message }) => {
+import { useEffect, useState } from "react";
 
-    const parts = message.split("```");
-    let transformedMessage = "";
-  
-    parts.forEach((part, index) => {
-      if (index % 2 === 0) {
-        // If it's normal text, escape HTML characters
-        transformedMessage += part.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      } else {
-        // If it's code, wrap in <code> tags without escaping
-        transformedMessage += `<code>${part}</code>`;
-      }
-    });
-  
-    return (
-      <>
-        <div className="chat-systemText">
-          &#47;&#47;&#47; &#61; &#62; Conversation transcription:
-        </div>
-        <div
-          className="chat-jarvisText"
-          dangerouslySetInnerHTML={{ __html: transformedMessage }}
-        />
-      </>
-    );
-  };
-  
+export const JarvisMessageComponent = ({ message, time, turboMode }) => {
+  console.log("turboMode IN CHAT: ", turboMode);
+
+  const [formattedDateTime, setFormattedDateTime] = useState("");
+
+  // Wrap content between the first and second triple backticks in <code> tags
+  const transformedMessage = message.replace(/```([\s\S]*?)```/g, (match, codeContent) => {
+    // Escape < and > characters inside codeContent only
+    const escapedCode = codeContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return `<code>${escapedCode}</code>`;
+  });
+
+  useEffect(() => {
+    const dateTime = time ? new Date(time) : new Date();
+    const optionsDateTime = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    };
+    setFormattedDateTime(dateTime.toLocaleString("en-US", optionsDateTime));
+  }, [time]);
+
+  return (
+    <>
+      <div className="chat-systemText">
+        &#47;&#47;&#47; &#61; &#62; {formattedDateTime} Conversation transcription:
+      </div>
+      <div
+        className="chat-jarvisText"
+        style={turboMode ? { color: "#FF4D00" } : undefined}
+        dangerouslySetInnerHTML={{ __html: turboMode ? `Turbo Response: ${transformedMessage}` : transformedMessage }}
+      />
+    </>
+  );
+};
