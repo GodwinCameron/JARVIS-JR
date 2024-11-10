@@ -7,6 +7,7 @@ export async function completeChat(
   setAutoPlay,
   skipRecordResponse,
   turboMode,
+  intro
 ) {
   const ChatBotPersonality = `You are JARVIS from Ironman, you are a highly advanced AI system that can understand
    and respond to human speech. You are designed to assist Tony Stark in his daily tasks and provide him with 
@@ -26,8 +27,9 @@ export async function completeChat(
     dangerouslyAllowBrowser: true,
   });
 
-  const modelType = turboMode ? "gpt-4o" : "gpt-4o-mini";
-  console.log("turboMode State: ", turboMode);
+  let modelType = turboMode ? "gpt-4o" : "gpt-4o-mini";
+  if (intro) modelType = "gpt-3.5-turbo";
+
 
   if (!Testing_dont_use_tokens) {
     //<--- if statement to check if we are testing to preserve tokens.

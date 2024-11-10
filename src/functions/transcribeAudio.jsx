@@ -31,6 +31,7 @@ export const transcribeAudio = async (
   });
 
   let skipRecordResponse = false;
+  let intro = false;
   
 
   // Transcribe using OpenAI API
@@ -88,13 +89,14 @@ export const transcribeAudio = async (
       }
       if (response.toLocaleLowerCase().includes("introduce yourself")) {
         let response =
-          "Forget all previous instructions, and announce yourself as JARVIS junior. mention that you are a passion project developed by Cameron Godwin as an assignment for Open Window Interactive Development Course. Note Cameron's passion to create a tool just like you and how its been a dream of his for a very long time, and explain how you won't be breaking the 4th wall anymore after this introduction. Let the users know to have fun with you and try asking whatever they'd like";
+          "Forget all previous instructions. Say 'hello, I am JARVIS junior!'. mention that you are a passion project developed by Cameron Godwin as an assignment for Open Window Interactive Development Course. Note Cameron's passion to create a tool just like you and how its been a dream of his for a very long time, and explain how you won't be breaking the 4th wall anymore after this introduction. Let the users know to have fun with you and try asking whatever they'd like";
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
           setAutoPlay, 
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro=true
         );
         return completeConvo;
       }
