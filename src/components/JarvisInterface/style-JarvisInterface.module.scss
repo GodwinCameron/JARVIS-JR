@@ -22,6 +22,8 @@
       border: 1px solid #01f4ff;
       border-radius: 7px;
       padding: 10px;
+      max-width: 80%;
+      cursor: pointer;
       .welcomSubText {
         font-size: 9px;
       }
@@ -149,13 +151,15 @@
     top: 0;
     left: 0;
     z-index: 100;
-    width: 100%;
     height: 100vh;
+    width: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     color: #01f4ff;
     align-items: center;
     justify-content: center;
     font-family: "Courier New", Courier, monospace;
+    padding-left: 2vw;
+    padding-right: 2vw;
     .showLiveChatOptions {
       display: flex;
       flex-direction: row;
@@ -174,6 +178,12 @@
       border-radius: 7px;
       width: 200px;
       height: 100px;
+      &:hover {
+        scale: 1.05;
+        cursor: pointer;
+        color: black;
+        background-color: #01f2ff5e;
+      }
     }
     .disableRed {
       border: 1px solid red;
@@ -181,12 +191,6 @@
       &:hover {
         background-color: rgba(255, 0, 0, 0.315);
       }
-    }
-    &:hover {
-      scale: 1.05;
-      cursor: pointer;
-      color: black;
-      background-color: #01f2ff5e;
     }
   }
 
@@ -205,10 +209,10 @@
   }
 }
 @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}

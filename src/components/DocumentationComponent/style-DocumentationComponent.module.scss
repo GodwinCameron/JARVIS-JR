@@ -19,12 +19,12 @@ a {
     padding-left: 4vw;
     padding-right: 4vw;
     font-family: monospace;
-    .titleSection{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-    }    
+    .titleSection {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
     .logoContainer {
       display: flex;
       flex-direction: row;
@@ -80,11 +80,25 @@ a {
       padding: 10px;
       text-decoration: none;
     }
+
+    .help {
+      display: flex;
+      flex-direction: row;
+      text-align: left;
+      gap: 4vw;
+      overflow-y: scroll;
+      .text3 {
+        margin-top: 2vh;
+        font-size: 16px;
+        color: "#01F4FF";
+        font-family: Arial, Helvetica, sans-serif;
+        text-wrap: wrap;
+        max-width: 50%;
+      }
+    }
   }
 }
 
 .linkText {
   color: #e4fdfe;
 }
-
-

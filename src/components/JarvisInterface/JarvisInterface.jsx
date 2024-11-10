@@ -25,9 +25,9 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [docs, setDocs] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
-  const [ShowLaunchOptions, setShowLaunchOptions] = useState(false);
+  const [ShowLaunchOptions, setShowLaunchOptions] = useState(true);
   const [musicRequestUrl, setMusicRequestUrl] = useState("");
-  const [welcomeMessage, setWelcomeMessage] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState(true);
   // - Engaging 4o
   const [turboMode, setTurboMode] = useState(false);
   const [playTurboSound, setPlayTurboSound] = useState(false);
@@ -115,7 +115,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
 
   // fires when you ask Jarvis to reset state.
   useEffect(() => {
-    setWelcomeMessage(false);
+    setWelcomeMessage(true);
     setOptions(false);
     setDocs(false);
     setShowChat(false);
@@ -282,7 +282,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
                 setShowLaunchOptions(false);
                 setShowChat(false);
               }}
-              className={`${styles.showLiveChatOptions} ${styles.disableRed}`}
+              className={`${styles.showLiveChatOptionsChoice} ${styles.disableRed}`}
             >
               Disable Complex Animations
             </div>

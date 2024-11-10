@@ -47,7 +47,7 @@ export const transcribeAudio = async (
     currentChat.push({ usermessage: response, timestamp: new Date() });
     sessionStorage.setItem("currentChat", JSON.stringify(currentChat));
 
-    if (response) {     
+    if (response) {
       if (response.toLocaleLowerCase().includes("more options")) {
         setOptions(true);
         let response =
@@ -248,12 +248,10 @@ export const transcribeAudio = async (
         return completeConvo;
       }
 
-
-
       if (
         response.toLocaleLowerCase().includes("shut up") ||
         response.toLocaleLowerCase().includes("stop talking")
-      ) { 
+      ) {
         setEndRequest(true);
         return;
       }
@@ -261,12 +259,10 @@ export const transcribeAudio = async (
       if (
         response.toLocaleLowerCase().includes("repeat that") ||
         response.toLocaleLowerCase().includes("say again")
-      ) { 
+      ) {
         setAutoPlay(true);
         return;
       }
-
-
 
       if (
         response.toLocaleLowerCase().includes("go back to normal") ||
