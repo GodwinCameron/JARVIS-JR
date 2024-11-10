@@ -14,9 +14,9 @@ export const transcribeAudio = async (
   setMusicRequestUrl,
   setTurboMode,
   turboMode,
-  setPlayTurboSound
+  setPlayTurboSound,
+  setEndRequest
 ) => {
-    
   // Create a File object from the Blob (audio)
   const file = new File([audioBlob], "speech.webm", { type: "audio/webm" });
 
@@ -27,12 +27,11 @@ export const transcribeAudio = async (
   // Initialize OpenAI API
   const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true,    
+    dangerouslyAllowBrowser: true,
   });
 
   let skipRecordResponse = false;
   let intro = false;
-  
 
   // Transcribe using OpenAI API
   // If statement to check if we are testing to preserve tokens.
@@ -43,12 +42,12 @@ export const transcribeAudio = async (
       response_format: "text",
     });
 
-    console.log(response);
+    console.log(response.toLocaleLowerCase());
     const currentChat = JSON.parse(sessionStorage.getItem("currentChat")) || [];
     currentChat.push({ usermessage: response, timestamp: new Date() });
     sessionStorage.setItem("currentChat", JSON.stringify(currentChat));
 
-    if (response) {
+    if (response) {     
       if (response.toLocaleLowerCase().includes("more options")) {
         setOptions(true);
         let response =
@@ -56,20 +55,27 @@ export const transcribeAudio = async (
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
         return completeConvo;
       }
-      if (response.toLocaleLowerCase().includes("reset state")) {
+      if (
+        response.toLocaleLowerCase().includes("reset state") ||
+        response.toLocaleLowerCase().includes("resets state") ||
+        response.toLocaleLowerCase().includes("reset your state") ||
+        response.toLocaleLowerCase().includes("go back to default view") ||
+        response.toLocaleLowerCase().includes("go back to the default view") ||
+        response.toLocaleLowerCase().includes("hide everything")
+      ) {
         setHudInterface(true);
         let response =
           "Hey Jarvis, ready your HUD interface, I want a default view.";
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
@@ -81,7 +87,7 @@ export const transcribeAudio = async (
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
@@ -93,17 +99,18 @@ export const transcribeAudio = async (
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode,
-          intro=true
+          (intro = true)
         );
         return completeConvo;
       }
       if (
         response.toLocaleLowerCase().includes("clear chat") ||
         response.toLocaleLowerCase().includes("clear session storage") ||
-        response.toLocaleLowerCase().includes("clear our chat")
+        response.toLocaleLowerCase().includes("clear our chat") ||
+        response.toLocaleLowerCase().includes("clear live chat")
       ) {
         sessionStorage.removeItem("currentChat");
         let response = "I've cleared the chat history.";
@@ -111,8 +118,8 @@ export const transcribeAudio = async (
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
-          skipRecordResponse=true,
+          setAutoPlay,
+          (skipRecordResponse = true),
           turboMode
         );
         return completeConvo;
@@ -132,7 +139,7 @@ export const transcribeAudio = async (
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
@@ -146,11 +153,12 @@ export const transcribeAudio = async (
         response.toLocaleLowerCase().includes("display chat")
       ) {
         setShowChat(true);
-        let response = "I've asked to display the live chat transcription, say something along the lines of 'showing live chat' or 'displaying live chat' or 'pulling up our current chat history'";
+        let response =
+          "I've asked to display the live chat transcription, say something along the lines of 'showing live chat' or 'displaying live chat' or 'pulling up our current chat history'";
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
@@ -165,23 +173,22 @@ export const transcribeAudio = async (
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
         return completeConvo;
       }
-      if (
-        response.toLocaleLowerCase().includes("drop my needle") 
-      ) {
+      if (response.toLocaleLowerCase().includes("drop my needle")) {
         setShowIframe(true);
         setMusicRequestUrl("zqY-Wr43j94?si=kADjwPfRJCsQWugh");
-        let response = "I've asked you to play a song for me, please only respond with 'playing...'";
+        let response =
+          "I've asked you to play a song for me, please only respond with 'playing...'";
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
-          skipRecordResponse=true,
+          setAutoPlay,
+          (skipRecordResponse = true),
           turboMode
         );
         return completeConvo;
@@ -194,15 +201,16 @@ export const transcribeAudio = async (
         response.toLocaleLowerCase().includes("play a tune") ||
         response.toLocaleLowerCase().includes("play some tunes") ||
         response.toLocaleLowerCase().includes("toggle music player") ||
-        response.toLocaleLowerCase().includes("toggle music") 
+        response.toLocaleLowerCase().includes("toggle music")
       ) {
         setShowIframe(true);
-        let response = "I've asked you to play a song for me, please only respond with 'playing...'";
+        let response =
+          "I've asked you to play a song for me, please only respond with 'playing...'";
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
-          skipRecordResponse=true,
+          setAutoPlay,
+          (skipRecordResponse = true),
           turboMode
         );
         return completeConvo;
@@ -210,13 +218,21 @@ export const transcribeAudio = async (
       if (
         response.toLocaleLowerCase().includes("jarvis, focus up") ||
         response.toLocaleLowerCase().includes("jarvis focus up") ||
-        response.toLocaleLowerCase().includes("divert all power to logical center") ||
-        response.toLocaleLowerCase().includes("divert all power to neural sockets") ||
+        response
+          .toLocaleLowerCase()
+          .includes("divert all power to logical center") ||
+        response
+          .toLocaleLowerCase()
+          .includes("divert all power to neural sockets") ||
         response.toLocaleLowerCase().includes("divert all power to reason") ||
         response.toLocaleLowerCase().includes("engage turbo mode") ||
-        response.toLocaleLowerCase().includes("free up your mind for this one") ||
-        response.toLocaleLowerCase().includes("free up yourself for this next") ||
-        response.toLocaleLowerCase().includes("i ned you to really focus here") 
+        response
+          .toLocaleLowerCase()
+          .includes("free up your mind for this one") ||
+        response
+          .toLocaleLowerCase()
+          .includes("free up yourself for this next") ||
+        response.toLocaleLowerCase().includes("i ned you to really focus here")
       ) {
         setTurboMode(true);
         setPlayTurboSound(true);
@@ -225,23 +241,44 @@ export const transcribeAudio = async (
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
         return completeConvo;
       }
+
+
+
+      if (
+        response.toLocaleLowerCase().includes("shut up") ||
+        response.toLocaleLowerCase().includes("stop talking")
+      ) { 
+        setEndRequest(true);
+        return;
+      }
+
+      if (
+        response.toLocaleLowerCase().includes("repeat that") ||
+        response.toLocaleLowerCase().includes("say again")
+      ) { 
+        setAutoPlay(true);
+        return;
+      }
+
+
+
       if (
         response.toLocaleLowerCase().includes("go back to normal") ||
         response.toLocaleLowerCase().includes("disable turbo mode") ||
-        response.toLocaleLowerCase().includes("disengage turbo mode") 
+        response.toLocaleLowerCase().includes("disengage turbo mode")
       ) {
         setTurboMode(false);
         let response = `I've asked you to disable turbo mode, please indicate that you are now back to normal`;
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
-          setAutoPlay, 
+          setAutoPlay,
           skipRecordResponse,
           turboMode
         );
@@ -250,12 +287,12 @@ export const transcribeAudio = async (
       await completeChat(
         response,
         Testing_dont_use_tokens,
-        setAutoPlay, 
+        setAutoPlay,
         skipRecordResponse,
         turboMode
       );
     }
-  } else {   
+  } else {
     return "This is a test transcription.";
   }
 };

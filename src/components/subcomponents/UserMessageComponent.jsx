@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const UserMessageComponent = ({message, time}) => {
+export const UserMessageComponent = ({message, time, turboMode}) => {
     const [formattedDateTime, setFormattedDateTime] = useState("");
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export const UserMessageComponent = ({message, time}) => {
 
   return (
     <>
-      <div className="chat-systemText">
+      <div className="chat-systemText" style={turboMode === true ? ({ color: "#ff9422"}) : null}>
         &#47;&#47;&#47; &#61; &#62; {formattedDateTime} User Input transcription:
       </div>
       <div className="chat-userText">

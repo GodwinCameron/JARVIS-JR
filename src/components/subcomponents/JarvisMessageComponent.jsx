@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 export const JarvisMessageComponent = ({ message, time, turboMode }) => {
-  console.log("turboMode IN CHAT: ", turboMode);
 
   const [formattedDateTime, setFormattedDateTime] = useState("");
 

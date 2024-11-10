@@ -177,13 +177,33 @@ a {
   align-items: flex-start;
   flex-direction: column;
   gap: 1vh;
-  margin-top: 2vh;
   padding: 10px;
   border: 1px solid #01f4ff;
   border-radius: 7px;
   max-width: 360px;
   max-height: 300px;
   color: #01f4ff;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: scroll;
+  scroll-margin-bottom: auto;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+.chat-box-turbo {
+  font-family: monospace;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1vh;
+  margin-top: 2vh;
+  padding: 10px;
+  border: 1px solid #FF4D00;
+  border-radius: 7px;
+  max-width: 360px;
+  max-height: 300px;
+  color: #ff9422;
   text-align: left;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -321,3 +341,23 @@ code{
   background-color: rgba(255, 0, 0, 0.315);
 }
 
+
+.vid-button{
+  color: #01f4ff;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  cursor: pointer;
+}
+
+.chat-box,
+.chat-box-turbo {
+  overflow-y: auto; /* Allow vertical scrolling */
+  max-height: 300px; /* Set max-height for scrolling */
+}

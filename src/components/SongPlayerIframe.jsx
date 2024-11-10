@@ -22,7 +22,7 @@ const YouTubePlayer = ({ url }) => {
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
       <div
-        className="option"
+        className="vid-button"
         onClick={() => {
           if (width === 400) {
             setWidth(0);
@@ -33,10 +33,10 @@ const YouTubePlayer = ({ url }) => {
           }
         }}
       >
-        &#9776;
+        <p>&#9776;🔊</p>
       </div>
       <div className="more-options">
-        <div className="option" onClick={() => playSong("newVideoId")}>
+        <div className="option" onClick={() => playSong("dQw4w9WgXcQ?si=r_db7-P2M_J5P3XW")}>
           Request Song
         </div>
       </div>

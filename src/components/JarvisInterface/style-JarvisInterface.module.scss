@@ -1,14 +1,3 @@
-@media (max-width: 768px) {
-  .launchOptions {
-    font-size: 14px;
-    padding: 15px;
-    .showLiveChatOptions {
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
-}
-
 .main {
   text-align: center;
   .appHeader {
@@ -20,6 +9,7 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+    overflow: hidden;
     .welcomeMessage {
       display: flex;
       flex-direction: column;
@@ -56,8 +46,11 @@
       }
       animation: App-logo-spin infinite 21s linear;
     }
-    .jarvisTurbo{
-        background-image: url("../../assets/turbo.png");
+    .jarvisTurbo {
+      background-image: url("../../assets/turbo.png");
+      &:hover {
+        box-shadow: #ff4d00 0px 0px 10px 4px;
+      }
     }
     .jarvisProcessing {
       display: flex;
@@ -90,6 +83,8 @@
     .workArea {
       display: flex;
       flex-direction: row;
+      max-height: 600px;
+      overflow-y: scroll;
       .column {
         display: flex;
         flex-direction: column;
@@ -98,6 +93,7 @@
         .moreOptions {
           display: flex;
           flex-direction: row;
+          align-items: center;
           gap: 2vw;
           margin-top: 3.5vh;
           font-size: 12px;
@@ -131,10 +127,20 @@
           }
         }
       }
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .showOptions {
+      color: #01f4ff;
+      margin-bottom: -20vh;
+      margin-top: 20vh;
+      cursor: pointer;
     }
   }
-  .appHeaderTurbo{
-    box-shadow: inset 0px 0px 20px 4px #FF4D00 !important;
+  .appHeaderTurbo {
+    box-shadow: inset 0px 0px 20px 4px #ff4d00 !important;
   }
   .launchOptions {
     display: flex;
@@ -182,14 +188,27 @@
       color: black;
       background-color: #01f2ff5e;
     }
+  }
 
-    @keyframes App-logo-spin {
-      from {
-        transform: rotate(0deg);
+  @media (max-width: 100px) {
+    .launchOptions {
+      font-size: 14px;
+      padding: 15px;
+      .showLiveChatOptions {
+        flex-direction: column;
+        gap: 10px;
       }
-      to {
-        transform: rotate(360deg);
-      }
+    }
+    .workArea {
+      flex-direction: column;
     }
   }
 }
+@keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

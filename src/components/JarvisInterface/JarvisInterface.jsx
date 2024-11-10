@@ -6,6 +6,7 @@ import ChatBoxComponent from "../ChatBoxComponent";
 import YouTubePlayer from "../SongPlayerIframe";
 import classNames from "classnames";
 import turboAudio from "../../assets/audio/turbo.mp3";
+import { Link } from "react-router-dom";
 
 const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   // CONSTANTS:
@@ -16,6 +17,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [audioURL, setAudioURL] = useState(null);
   const audioRef = useRef(null);
   const [autoPlay, setAutoPlay] = useState(false);
+  const [endRequest, setEndRequest] = useState(false);
   // - Displaying Options/Altering Interface::
   const [processing, setProcessing] = useState(false);
   const [options, setOptions] = useState(false);
@@ -30,7 +32,6 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [turboMode, setTurboMode] = useState(false);
   const [playTurboSound, setPlayTurboSound] = useState(false);
   const audioRef2 = useRef(null);
-
 
   // primary useEffect hook to check for microphone permissions and browser support.
   useEffect(() => {
@@ -80,7 +81,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
       setMusicRequestUrl,
       setTurboMode,
       turboMode,
-      setPlayTurboSound
+      setPlayTurboSound,
+      setEndRequest
     );
   };
 
@@ -95,8 +97,14 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     }
   }, [autoPlay]);
 
-   // fires after turbo mode is engaged.
-   useEffect(() => {
+  // listener for when a request is ended without expecting a response from jarvis.
+  useEffect(() => {
+    setAutoPlay(false);
+    setProcessing(false);
+  }, [endRequest]);
+
+  // fires after turbo mode is engaged.
+  useEffect(() => {
     if (playTurboSound) {
       audioRef2.current.play().catch((error) => {
         console.log("Auto-play was prevented:", error);
@@ -114,6 +122,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     setShowIframe(false);
     setMusicRequestUrl("");
     setTurboMode(false);
+    document.getElementById("cog").style.display = "flex";
   }, [HudInterface]);
 
   const displayChat = () => {
@@ -126,6 +135,12 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
 
   const dismissWelcome = () => {
     setWelcomeMessage(false);
+  };
+
+  const handleCogClick = () => {
+    setOptions(true);
+    setDocs(true);
+    document.getElementById("cog").style.display = "none";
   };
 
   return (
@@ -180,26 +195,27 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
                   <div onClick={displayChat} className={styles.option}>
                     Display Live Chat Transcription
                   </div>
-                  <div className="option">View Past Chats</div>
+                  <Link to="/past-chats">
+                    <div className="option">View Past Chats</div>
+                  </Link>
                   <div onClick={displayIframe} className={styles.option}>
                     Search for a song
                   </div>
                 </div>
               </>
             )}
-            {showChat && <ChatBoxComponent processing={processing} />}
+            {showChat && (
+              <ChatBoxComponent processing={processing} turboMode={turboMode} />
+            )}
           </div>
 
           <div className={styles.column}>
             {docs && (
-              <a
-                target="_blank"
-                href="https://github.com/GodwinCameron/JARVIS-JR"
-              >
+              <Link to="/docs">
                 <div className={`${styles.moreOptions} ${styles.docs}`}>
                   &#47;&#47;&#47; &#61; &#62; Documentation
                 </div>
-              </a>
+              </Link>
             )}
             {showIframe && (
               <YouTubePlayer
@@ -221,11 +237,14 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
           controls
         ></audio>
         <audio
-        style={{ display: "none" }}
-        ref={audioRef2} 
-        src={turboAudio} 
-        controls
-      ></audio>
+          style={{ display: "none" }}
+          ref={audioRef2}
+          src={turboAudio}
+          controls
+        ></audio>
+        <div id="cog" onClick={handleCogClick} className={styles.showOptions}>
+          &#9881;
+        </div>
       </div>
       {ShowLaunchOptions && (
         <div className={styles.launchOptions}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { UserMessageComponent } from "./subcomponents/UserMessageComponent";
 import { JarvisMessageComponent } from "./subcomponents/JarvisMessageComponent";
 
-const ChatBoxComponent = ({ processing }) => {
+const ChatBoxComponent = ({ processing, turboMode }) => {
   const [currentChat, setCurrentChat] = useState([]);
   const [formattedDate, setFormattedDate] = useState("");
 
@@ -13,10 +13,16 @@ const ChatBoxComponent = ({ processing }) => {
     setCurrentChat(JSON.parse(sessionStorage.getItem("currentChat")) || []);
   }, [processing]);
 
-  // Automatically scroll to bottom when `currentChat` changes with smooth scroll
+ 
+  useEffect(() => {
+    const date = new Date();
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    setFormattedDate(date.toLocaleDateString("en-US", options));
+  }, []);
+
+   // Automatically scroll to bottom of chat
   useEffect(() => {
     if (chatContainerRef.current) {
-      // Apply smooth scrolling with a small delay
       const container = chatContainerRef.current;
       container.scrollTo({
         top: container.scrollHeight,
@@ -24,10 +30,8 @@ const ChatBoxComponent = ({ processing }) => {
       });
     }
 
-    const date = new Date();
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    setFormattedDate(date.toLocaleDateString("en-US", options));
-  }, [currentChat]);
+  }, [processing, currentChat]);
+
 
   const saveChatToLocalStorage = () => {
     const chat = JSON.parse(sessionStorage.getItem("currentChat")) || [];
@@ -38,7 +42,10 @@ const ChatBoxComponent = ({ processing }) => {
   return (
     <>
       <div className="chatSection">
-        <div className="chat-box" ref={chatContainerRef}>
+        <div
+          className={turboMode === true ? "chat-box-turbo" : "chat-box"}
+          ref={chatContainerRef}
+        >
           <div className="chat-title">Chat Holotape retrieved</div>
           <div className="chat-systemText">
             &#47;&#47;&#47; &#61; &#62; Data retrieval successful...
@@ -46,7 +53,7 @@ const ChatBoxComponent = ({ processing }) => {
           <div className="chat-subtitle">
             {"          "} - Recorded on {formattedDate} ...
           </div>
-          <div></div> {/* temporary small spacer */}
+          <div></div>
           {currentChat.map((chat, index) => {
             if (chat.usermessage) {
               return (
@@ -54,6 +61,7 @@ const ChatBoxComponent = ({ processing }) => {
                   key={index}
                   message={chat.usermessage}
                   time={chat.timestamp}
+                  turboMode={turboMode}
                 />
               );
             } else {
@@ -69,8 +77,11 @@ const ChatBoxComponent = ({ processing }) => {
           })}
         </div>
       </div>
-      <div className="chat-box">
-        <div className="chat-systemText">
+      <div className={turboMode === true ? "chat-box-turbo" : "chat-box"}>
+        <div
+          className="chat-systemText"
+          style={turboMode === true ? { color: "#ff9422" } : null}
+        >
           To save this chat for later, ask JARVIS to{" "}
           <span onClick={saveChatToLocalStorage} className="saveText">
             'Save Chat'
