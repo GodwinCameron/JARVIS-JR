@@ -27,7 +27,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [showIframe, setShowIframe] = useState(false);
   const [ShowLaunchOptions, setShowLaunchOptions] = useState(false);
   const [musicRequestUrl, setMusicRequestUrl] = useState("");
-  const [welcomeMessage, setWelcomeMessage] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState(true);
   // - Engaging 4o
   const [turboMode, setTurboMode] = useState(false);
   const [playTurboSound, setPlayTurboSound] = useState(false);
