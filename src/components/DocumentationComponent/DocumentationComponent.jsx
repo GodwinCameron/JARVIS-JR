@@ -3,6 +3,11 @@ import styles from "./style-DocumentationComponent.module.scss";
 import { Link } from "react-router-dom";
 
 const DocumentationComponent = () => {
+
+  const removeApiKey = () => {
+    localStorage.removeItem("key");
+  }
+
   return (
     <>
       <div className={styles.main}>
@@ -17,8 +22,13 @@ const DocumentationComponent = () => {
               target="_blank"
               href="https://github.com/GodwinCameron/JARVIS-JR"
             >
-              <div className={`${styles.moreOptions} ${styles.docs}`}>
-                &#47;&#47;&#47; &#61; &#62; To GitHub Repo
+              <div>
+              <div onClick={removeApiKey} className={`${styles.moreOptions} ${styles.docs}`}>
+                  &#47;&#47;&#47; &#61; &#62; Reset API Key
+                </div>
+                <div className={`${styles.moreOptions} ${styles.docs}`}>
+                  &#47;&#47;&#47; &#61; &#62; To GitHub Repo
+                </div>
               </div>
             </a>
           </div>
@@ -101,7 +111,9 @@ const DocumentationComponent = () => {
               <p className={styles.text3}>
                 {"              "} - "shut up/stop talking"
               </p>
-              <p className={styles.text3}>{"              "} and many more...</p>
+              <p className={styles.text3}>
+                {"              "} and many more...
+              </p>
             </p>
           </div>
 
