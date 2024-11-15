@@ -3,10 +3,9 @@ import styles from "./style-DocumentationComponent.module.scss";
 import { Link } from "react-router-dom";
 
 const DocumentationComponent = () => {
-
   const removeApiKey = () => {
     localStorage.removeItem("key");
-  }
+  };
 
   return (
     <>
@@ -18,19 +17,23 @@ const DocumentationComponent = () => {
                 &#10096; Back
               </div>
             </Link>
-            <a
-              target="_blank"
-              href="https://github.com/GodwinCameron/JARVIS-JR"
-            >
-              <div>
-              <div onClick={removeApiKey} className={`${styles.moreOptions} ${styles.docs}`}>
-                  &#47;&#47;&#47; &#61; &#62; Reset API Key
-                </div>
+
+            <div>
+              <div
+                onClick={removeApiKey}
+                className={`${styles.moreOptions} ${styles.docs}`}
+              >
+                &#47;&#47;&#47; &#61; &#62; Reset API Key
+              </div>
+              <a
+                target="_blank"
+                href="https://github.com/GodwinCameron/JARVIS-JR"
+              >
                 <div className={`${styles.moreOptions} ${styles.docs}`}>
                   &#47;&#47;&#47; &#61; &#62; To GitHub Repo
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
 
           <div className={styles.logoContainer}>
