@@ -48,8 +48,6 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
       alert("Your browser does not support audio recording.");
     }
 
-    setWelcomeMessage(true);
-
     if (localStorage.getItem("key")) {
       setHasApiKey(true);
     }
@@ -123,7 +121,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
 
   // fires when you ask Jarvis to reset state.
   useEffect(() => {
-    setWelcomeMessage(false);
+    // setWelcomeMessage(false);
     setOptions(false);
     setDocs(false);
     setShowChat(false);
