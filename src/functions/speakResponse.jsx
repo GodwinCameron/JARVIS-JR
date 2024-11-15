@@ -1,12 +1,21 @@
 import OpenAI from "openai";
 
 export async function speakResponse(content, setAutoPlay) {
-    // Initialize OpenAI API
+ 
+  const apikey = localStorage.getItem("key");
+
+
+  // // Initialize OpenAI API
+  // const openai = new OpenAI({
+  //   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  //   dangerouslyAllowBrowser: true,
+  // });
+
+  // Initialize OpenAI API Using localstorage API key
   const openai = new OpenAI({
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+    apiKey: apikey,
     dangerouslyAllowBrowser: true,
   });
-
 
     // Call OpenAI API (Make sure you use the right API client for browser environments)
     if (content) {

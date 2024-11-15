@@ -25,13 +25,14 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [docs, setDocs] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
-  const [ShowLaunchOptions, setShowLaunchOptions] = useState(true);
+  const [ShowLaunchOptions, setShowLaunchOptions] = useState(false);
   const [musicRequestUrl, setMusicRequestUrl] = useState("");
-  const [welcomeMessage, setWelcomeMessage] = useState(true);
+  const [welcomeMessage, setWelcomeMessage] = useState(false);
   // - Engaging 4o
   const [turboMode, setTurboMode] = useState(false);
   const [playTurboSound, setPlayTurboSound] = useState(false);
   const audioRef2 = useRef(null);
+  const [hasApiKey, setHasApiKey] = useState(false);
 
   // primary useEffect hook to check for microphone permissions and browser support.
   useEffect(() => {
@@ -45,6 +46,10 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       alert("Your browser does not support audio recording.");
+    }
+
+    if (localStorage.getItem("key")) {
+      setHasApiKey(true);
     }
   }, []);
 
@@ -94,6 +99,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
       });
       setAutoPlay(false);
       setProcessing(false);
+      setEndRequest(false);
     }
   }, [autoPlay]);
 
@@ -115,7 +121,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
 
   // fires when you ask Jarvis to reset state.
   useEffect(() => {
-    setWelcomeMessage(true);
+    setWelcomeMessage(false);
     setOptions(false);
     setDocs(false);
     setShowChat(false);
@@ -143,6 +149,15 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     document.getElementById("cog").style.display = "none";
   };
 
+  const setApiKey = (e) => {
+    e.preventDefault();
+    const key = e.target.elements[0].value;
+    if (key) {
+      localStorage.setItem("key", key);
+      setHasApiKey(true); // Set state to hide the form
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div
@@ -150,6 +165,14 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
           [styles.appHeaderTurbo]: turboMode,
         })}
       >
+        {hasApiKey ? null : (
+          <div>
+            <form onSubmit={setApiKey}>
+              <input name="apiKey" type="text" placeholder="Enter API Key" />
+              <button type="submit">Set Key</button>
+            </form>
+          </div>
+        )}
         {welcomeMessage && (
           <div onClick={dismissWelcome} className={styles.welcomeMessage}>
             Hello and welcome to J-A-R-V-I-S-JR!

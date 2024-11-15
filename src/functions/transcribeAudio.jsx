@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { completeChat } from "./completeChat";
+import { useEffect } from "react";
 
 export const transcribeAudio = async (
   audioBlob,
@@ -24,11 +25,21 @@ export const transcribeAudio = async (
   console.log("File size:", file.size);
   console.log("File type:", file.type);
 
-  // Initialize OpenAI API
+  const apikey = localStorage.getItem("key");
+
+
+  // // Initialize OpenAI API
+  // const openai = new OpenAI({
+  //   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  //   dangerouslyAllowBrowser: true,
+  // });
+
+  // Initialize OpenAI API Using localstorage API key
   const openai = new OpenAI({
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+    apiKey: apikey,
     dangerouslyAllowBrowser: true,
   });
+
 
   let skipRecordResponse = false;
   let intro = false;
@@ -198,6 +209,7 @@ export const transcribeAudio = async (
         response.toLocaleLowerCase().includes("play something") ||
         response.toLocaleLowerCase().includes("play a song") ||
         response.toLocaleLowerCase().includes("play a track") ||
+        response.toLocaleLowerCase().includes("play music") ||
         response.toLocaleLowerCase().includes("play a tune") ||
         response.toLocaleLowerCase().includes("play some tunes") ||
         response.toLocaleLowerCase().includes("toggle music player") ||
@@ -224,15 +236,18 @@ export const transcribeAudio = async (
         response
           .toLocaleLowerCase()
           .includes("divert all power to neural sockets") ||
+          response
+          .toLocaleLowerCase()
+          .includes("divert power to neural sockets") ||
         response.toLocaleLowerCase().includes("divert all power to reason") ||
-        response.toLocaleLowerCase().includes("engage turbo mode") ||
+        response.toLocaleLowerCase().includes("time to engage turbo mode") ||
         response
           .toLocaleLowerCase()
           .includes("free up your mind for this one") ||
         response
           .toLocaleLowerCase()
           .includes("free up yourself for this next") ||
-        response.toLocaleLowerCase().includes("i ned you to really focus here")
+        response.toLocaleLowerCase().includes("i need you to really focus here")
       ) {
         setTurboMode(true);
         setPlayTurboSound(true);
@@ -250,7 +265,10 @@ export const transcribeAudio = async (
 
       if (
         response.toLocaleLowerCase().includes("shut up") ||
-        response.toLocaleLowerCase().includes("stop talking")
+        response.toLocaleLowerCase().includes("stop talking") ||
+        response.toLocaleLowerCase().includes("that's all jarvis") ||
+        response.toLocaleLowerCase().includes("jarvis, that's all") ||
+        response.toLocaleLowerCase().includes("jarvis, be quiet")
       ) {
         setEndRequest(true);
         return;
