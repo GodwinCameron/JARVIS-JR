@@ -48,16 +48,16 @@
       }
       animation: App-logo-spin infinite 21s linear;
     }
-    .jarvisTurbo {
-      background-image: url("../../assets/turbo.png");
-      &:hover {
-        box-shadow: #ff4d00 0px 0px 10px 4px;
-      }
-    }
     .friday {
       background-image: url("../../assets/friday.png");
       &:hover {
         box-shadow: #ff006f 0px 0px 10px 4px;
+      }
+    }
+    .jarvisTurbo {
+      background-image: url("../../assets/turbo.png");
+      &:hover {
+        box-shadow: #ff4d00 0px 0px 10px 4px;
       }
     }
     .jarvisProcessing {

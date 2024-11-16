@@ -213,7 +213,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
             onClick={handleJarvisRequest}
             className={classNames(styles.jarvis, {
               [styles.friday]: FridayMode === "enabled",
-              [styles.jarvisTurbo]: turboMode,
+              [styles.jarvisTurbo]: turboMode
             })}
             // className = {`${styles.jarvis} ${styles.green}`}
             alt="logo"
