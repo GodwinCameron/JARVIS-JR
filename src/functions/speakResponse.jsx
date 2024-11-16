@@ -5,9 +5,10 @@ export async function speakResponse(content, setAutoPlay, FridayMode) {
   const apikey = localStorage.getItem("key");
 
   let voice = "onyx"
-  if (FridayMode) {
+  if (FridayMode==="enabled") {
     voice = "nova"
   }
+  
 
 
   // // Initialize OpenAI API

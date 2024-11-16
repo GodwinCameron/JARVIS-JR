@@ -23,7 +23,7 @@ export const transcribeAudio = async (
   const file = new File([audioBlob], "speech.webm", { type: "audio/webm" });
 
   let chatBotName = "jarvis";
-  if (FridayMode) {
+  if (FridayMode==="enabled") {
     chatBotName = "friday";
   }
 
@@ -101,7 +101,7 @@ export const transcribeAudio = async (
       if (response.toLocaleLowerCase().includes("documentation")) {
         setDocs(true);
         let response = "respond only with 'certainly sir. Displaying docs now'";
-        if (FridayMode) {
+        if (FridayMode==="enabled") {
           response = "respond only with 'certainly ma'am. Displaying docs now'";
         }
         const completeConvo = await completeChat(
@@ -419,7 +419,7 @@ export const transcribeAudio = async (
         setHudInterface(true);
         let response =
           "Hey "+chatBotName+". (p.s. please ONLY respond with 'at your service, sir.' don't say anything else before or after)";
-          if (FridayMode) {
+          if (FridayMode==="enabled") {
             response =
               "Hey "+chatBotName+". (p.s. please ONLY respond with 'at your service, ma'am.' don't say anything else before or after)";
           }
