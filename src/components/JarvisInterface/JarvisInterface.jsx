@@ -33,6 +33,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [playTurboSound, setPlayTurboSound] = useState(false);
   const audioRef2 = useRef(null);
   const [hasApiKey, setHasApiKey] = useState(false);
+  // F.R.I.D.A.Y. Mode
+  const [FridayMode, setFridayMode] = useState("unset");
 
   // primary useEffect hook to check for microphone permissions and browser support.
   useEffect(() => {
@@ -87,7 +89,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
       setTurboMode,
       turboMode,
       setPlayTurboSound,
-      setEndRequest
+      setEndRequest,
+      FridayMode
     );
   };
 
@@ -158,11 +161,22 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     }
   };
 
+  const enableFriday = (enable) => {
+    if (enable === true) {
+      setFridayMode("enabled");
+    } else {
+      setFridayMode("disabled");
+    }
+  };
+
+  
+
   return (
     <div className={styles.main}>
       <div
         className={classNames(styles.appHeader, {
           [styles.appHeaderTurbo]: turboMode,
+          [styles.appHeaderFriday]: FridayMode === "enabled",
         })}
       >
         {hasApiKey ? null : (
@@ -173,6 +187,15 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
             </form>
           </div>
         )}
+
+        {FridayMode == "unset" ? (
+          <div className={styles.welcomeMessage}>
+            Enable F.R.I.D.A.Y. ?{" "}
+            <button onClick={() => enableFriday(true)}>Yes</button>
+            <button onClick={() => enableFriday(false)}>No</button>
+          </div>
+        ) : null}
+
         {welcomeMessage && (
           <div onClick={dismissWelcome} className={styles.welcomeMessage}>
             Hello and welcome to J-A-R-V-I-S-JR!
@@ -190,6 +213,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
             onClick={handleJarvisRequest}
             className={classNames(styles.jarvis, {
               [styles.jarvisTurbo]: turboMode,
+              [styles.friday]: FridayMode === "enabled",
             })}
             // className = {`${styles.jarvis} ${styles.green}`}
             alt="logo"

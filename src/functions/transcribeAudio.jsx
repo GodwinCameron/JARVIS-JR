@@ -16,7 +16,8 @@ export const transcribeAudio = async (
   setTurboMode,
   turboMode,
   setPlayTurboSound,
-  setEndRequest
+  setEndRequest,
+  FridayMode
 ) => {
   // Create a File object from the Blob (audio)
   const file = new File([audioBlob], "speech.webm", { type: "audio/webm" });
@@ -26,7 +27,6 @@ export const transcribeAudio = async (
   console.log("File type:", file.type);
 
   const apikey = localStorage.getItem("key");
-
 
   // // Initialize OpenAI API
   // const openai = new OpenAI({
@@ -39,7 +39,6 @@ export const transcribeAudio = async (
     apiKey: apikey,
     dangerouslyAllowBrowser: true,
   });
-
 
   let skipRecordResponse = false;
   let intro = false;
@@ -88,7 +87,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -100,7 +101,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -113,7 +116,8 @@ export const transcribeAudio = async (
           setAutoPlay,
           skipRecordResponse,
           turboMode,
-          (intro = true)
+          (intro = true),
+          FridayMode
         );
         return completeConvo;
       }
@@ -131,7 +135,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           (skipRecordResponse = true),
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -152,7 +158,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -171,7 +179,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -186,7 +196,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -200,7 +212,80 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           (skipRecordResponse = true),
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
+        );
+        return completeConvo;
+      }
+      if (
+        response.toLocaleLowerCase().includes("wake up, daddy's home") ||
+        response.toLocaleLowerCase().includes("wake up. daddy's home") ||
+        response.toLocaleLowerCase().includes("wake up daddy's home")
+      ) {
+        setShowIframe(true);
+        setMusicRequestUrl("BN1WwnEDWAM?si=s_WQbhooxMooFUKJ");
+        let response =
+          "I've asked you to welcome me home, please only respond with 'welcome home sir, congratulations on your successful mission'";
+        const completeConvo = await completeChat(
+          response,
+          Testing_dont_use_tokens,
+          setAutoPlay,
+          (skipRecordResponse = true),
+          turboMode,
+          (intro = true),
+          FridayMode
+        );
+        return completeConvo;
+      }
+      if (
+        response.toLocaleLowerCase().includes("play music from iron man") ||
+        response.toLocaleLowerCase().includes("play songs from iron man")
+      ) {
+        setShowIframe(true);
+        setMusicRequestUrl("8aQRq9hhekA?si=mE9D0SAlOuNXP-Bj");
+        let response =
+          "I've asked you to play a song for me, please only respond with 'playing...'";
+        const completeConvo = await completeChat(
+          response,
+          Testing_dont_use_tokens,
+          setAutoPlay,
+          (skipRecordResponse = true),
+          turboMode,
+          (intro = true),
+          FridayMode
+        );
+        return completeConvo;
+      }
+      if (
+        response.toLocaleLowerCase().includes("play something i'd listen to") ||
+        response
+          .toLocaleLowerCase()
+          .includes("play something i would listen to") ||
+        response
+          .toLocaleLowerCase()
+          .includes("play songs tony stark would listen to") ||
+        response
+          .toLocaleLowerCase()
+          .includes("play something tony stark would listen to")
+      ) {
+        setShowIframe(true);
+        let rand = Math.floor(Math.random() * 2);
+        if (rand > 0) {
+          setMusicRequestUrl("8aQRq9hhekA?si=mE9D0SAlOuNXP-Bj");
+        } else {
+          setMusicRequestUrl("wLoWd2KyUro?si=RTbhlMvFeVxpRsHC");
+        }
+        let response =
+          "I've asked you to play a song for me, please only respond with 'playing...'";
+        const completeConvo = await completeChat(
+          response,
+          Testing_dont_use_tokens,
+          setAutoPlay,
+          (skipRecordResponse = true),
+          turboMode,
+          (intro = true),
+          FridayMode
         );
         return completeConvo;
       }
@@ -216,6 +301,9 @@ export const transcribeAudio = async (
         response.toLocaleLowerCase().includes("toggle music")
       ) {
         setShowIframe(true);
+        setMusicRequestUrl(
+          "videoseries?si=L5RcgG5Mr2GfEmvN&amp;list=PLBymIW1wS9vYQSx7ZtP6YNeNOiubHI6JE"
+        );
         let response =
           "I've asked you to play a song for me, please only respond with 'playing...'";
         const completeConvo = await completeChat(
@@ -223,7 +311,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           (skipRecordResponse = true),
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -236,7 +326,7 @@ export const transcribeAudio = async (
         response
           .toLocaleLowerCase()
           .includes("divert all power to neural sockets") ||
-          response
+        response
           .toLocaleLowerCase()
           .includes("divert power to neural sockets") ||
         response.toLocaleLowerCase().includes("divert all power to reason") ||
@@ -258,7 +348,9 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
         );
         return completeConvo;
       }
@@ -270,6 +362,16 @@ export const transcribeAudio = async (
         response.toLocaleLowerCase().includes("jarvis, that's all") ||
         response.toLocaleLowerCase().includes("jarvis, be quiet")
       ) {
+        setEndRequest(true);
+        return;
+      }
+      if (
+        response.toLocaleLowerCase().includes("jarvis, mute") ||
+        response.toLocaleLowerCase().includes("jarvis mute") ||
+        response.toLocaleLowerCase().includes("mute, jarvis") ||
+        response.toLocaleLowerCase().includes("mute jarvis")
+      ) {
+        setShowIframe(false);
         setEndRequest(true);
         return;
       }
@@ -294,7 +396,29 @@ export const transcribeAudio = async (
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
-          turboMode
+          turboMode,
+          intro,
+          FridayMode
+        );
+        return completeConvo;
+      }
+      if (
+        response.toLocaleLowerCase().includes("jarvis, are you there?") ||
+        response.toLocaleLowerCase().includes("are you there, jarvis?") ||
+        response.toLocaleLowerCase().includes("jarvis are you there") ||
+        response.toLocaleLowerCase().includes("are you there jarvis")
+      ) {
+        setHudInterface(true);
+        let response =
+          "Hey Jarvis. (p.s. please ONLY respond with 'at your service, sir.' don't say anything else before or after)";
+        const completeConvo = await completeChat(
+          response,
+          Testing_dont_use_tokens,
+          setAutoPlay,
+          skipRecordResponse,
+          turboMode,
+          (intro = true),
+          FridayMode
         );
         return completeConvo;
       }
@@ -303,7 +427,9 @@ export const transcribeAudio = async (
         Testing_dont_use_tokens,
         setAutoPlay,
         skipRecordResponse,
-        turboMode
+        turboMode,
+        intro,
+        FridayMode
       );
     }
   } else {

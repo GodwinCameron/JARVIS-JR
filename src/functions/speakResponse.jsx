@@ -1,8 +1,13 @@
 import OpenAI from "openai";
 
-export async function speakResponse(content, setAutoPlay) {
+export async function speakResponse(content, setAutoPlay, FridayMode) {
  
   const apikey = localStorage.getItem("key");
+
+  let voice = "onyx"
+  if (FridayMode) {
+    voice = "nova"
+  }
 
 
   // // Initialize OpenAI API
@@ -21,7 +26,7 @@ export async function speakResponse(content, setAutoPlay) {
     if (content) {
       const mp3 = await openai.audio.speech.create({
         model: "tts-1",
-        voice: "onyx",
+        voice: voice,
         input: content,
       });
       // Convert response to a Blob (browser-compatible)

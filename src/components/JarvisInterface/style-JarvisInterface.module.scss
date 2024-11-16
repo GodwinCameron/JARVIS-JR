@@ -54,6 +54,12 @@
         box-shadow: #ff4d00 0px 0px 10px 4px;
       }
     }
+    .friday {
+      background-image: url("../../assets/friday.png");
+      &:hover {
+        box-shadow: #ff4d00 0px 0px 10px 4px;
+      }
+    }
     .jarvisProcessing {
       display: flex;
       border-radius: 50%;
@@ -143,6 +149,9 @@
   }
   .appHeaderTurbo {
     box-shadow: inset 0px 0px 20px 4px #ff4d00 !important;
+  }
+  .appHeaderFriday {
+    box-shadow: inset 0px 0px 20px 4px #ff006f !important;
   }
   .launchOptions {
     display: flex;

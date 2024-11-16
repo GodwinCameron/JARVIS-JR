@@ -19,7 +19,8 @@ export const stopRecording = async (
   setTurboMode,
   turboMode,
   setPlayTurboSound,
-  setEndRequest
+  setEndRequest,
+  FridayMode
 ) => {
   mediaRecorderRef.current.stop();
   // <---- Wait for the media recorder to fully stop before creating the blob
@@ -47,7 +48,8 @@ export const stopRecording = async (
       setTurboMode,
       turboMode,
       setPlayTurboSound,
-      setEndRequest
+      setEndRequest,
+      FridayMode
     );
     audioChunksRef.current = [];
   };
