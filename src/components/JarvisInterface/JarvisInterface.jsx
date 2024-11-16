@@ -175,8 +175,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     <div className={styles.main}>
       <div
         className={classNames(styles.appHeader, {
-          [styles.appHeaderTurbo]: turboMode,
           [styles.appHeaderFriday]: FridayMode === "enabled",
+          [styles.appHeaderTurbo]: turboMode
         })}
       >
         {hasApiKey ? null : (
@@ -212,8 +212,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
           <div
             onClick={handleJarvisRequest}
             className={classNames(styles.jarvis, {
-              [styles.jarvisTurbo]: turboMode,
               [styles.friday]: FridayMode === "enabled",
+              [styles.jarvisTurbo]: turboMode,
             })}
             // className = {`${styles.jarvis} ${styles.green}`}
             alt="logo"

@@ -57,7 +57,7 @@
     .friday {
       background-image: url("../../assets/friday.png");
       &:hover {
-        box-shadow: #ff4d00 0px 0px 10px 4px;
+        box-shadow: #ff006f 0px 0px 10px 4px;
       }
     }
     .jarvisProcessing {
@@ -147,11 +147,11 @@
       cursor: pointer;
     }
   }
-  .appHeaderTurbo {
-    box-shadow: inset 0px 0px 20px 4px #ff4d00 !important;
-  }
   .appHeaderFriday {
     box-shadow: inset 0px 0px 20px 4px #ff006f !important;
+  }
+  .appHeaderTurbo {
+    box-shadow: inset 0px 0px 20px 4px #ff4d00 !important;
   }
   .launchOptions {
     display: flex;
