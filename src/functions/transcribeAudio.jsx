@@ -22,6 +22,11 @@ export const transcribeAudio = async (
   // Create a File object from the Blob (audio)
   const file = new File([audioBlob], "speech.webm", { type: "audio/webm" });
 
+  let chatBotName = "jarvis";
+  if (FridayMode) {
+    chatBotName = "friday";
+  }
+
   console.log("File:", file);
   console.log("File size:", file.size);
   console.log("File type:", file.type);
@@ -81,7 +86,7 @@ export const transcribeAudio = async (
       ) {
         setHudInterface(true);
         let response =
-          "Hey Jarvis, ready your HUD interface, I want a default view.";
+          "Hey "+chatBotName+", ready your HUD interface, I want a default view.";
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
@@ -96,6 +101,9 @@ export const transcribeAudio = async (
       if (response.toLocaleLowerCase().includes("documentation")) {
         setDocs(true);
         let response = "respond only with 'certainly sir. Displaying docs now'";
+        if (FridayMode) {
+          response = "respond only with 'certainly ma'am. Displaying docs now'";
+        }
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
@@ -318,8 +326,8 @@ export const transcribeAudio = async (
         return completeConvo;
       }
       if (
-        response.toLocaleLowerCase().includes("jarvis, focus up") ||
-        response.toLocaleLowerCase().includes("jarvis focus up") ||
+        response.toLocaleLowerCase().includes(chatBotName+", focus up") ||
+        response.toLocaleLowerCase().includes(chatBotName+" focus up") ||
         response
           .toLocaleLowerCase()
           .includes("divert all power to logical center") ||
@@ -358,18 +366,18 @@ export const transcribeAudio = async (
       if (
         response.toLocaleLowerCase().includes("shut up") ||
         response.toLocaleLowerCase().includes("stop talking") ||
-        response.toLocaleLowerCase().includes("that's all jarvis") ||
-        response.toLocaleLowerCase().includes("jarvis, that's all") ||
-        response.toLocaleLowerCase().includes("jarvis, be quiet")
+        response.toLocaleLowerCase().includes("that's all "+chatBotName) ||
+        response.toLocaleLowerCase().includes(chatBotName+", that's all") ||
+        response.toLocaleLowerCase().includes(chatBotName+", be quiet")
       ) {
         setEndRequest(true);
         return;
       }
       if (
-        response.toLocaleLowerCase().includes("jarvis, mute") ||
-        response.toLocaleLowerCase().includes("jarvis mute") ||
-        response.toLocaleLowerCase().includes("mute, jarvis") ||
-        response.toLocaleLowerCase().includes("mute jarvis")
+        response.toLocaleLowerCase().includes(chatBotName+", mute") ||
+        response.toLocaleLowerCase().includes(chatBotName+" mute") ||
+        response.toLocaleLowerCase().includes("mute, "+chatBotName) ||
+        response.toLocaleLowerCase().includes("mute "+chatBotName)
       ) {
         setShowIframe(false);
         setEndRequest(true);
@@ -403,14 +411,18 @@ export const transcribeAudio = async (
         return completeConvo;
       }
       if (
-        response.toLocaleLowerCase().includes("jarvis, are you there?") ||
-        response.toLocaleLowerCase().includes("are you there, jarvis?") ||
-        response.toLocaleLowerCase().includes("jarvis are you there") ||
-        response.toLocaleLowerCase().includes("are you there jarvis")
+        response.toLocaleLowerCase().includes(chatBotName+", are you there?") ||
+        response.toLocaleLowerCase().includes("are you there, "+chatBotName+"?") ||
+        response.toLocaleLowerCase().includes(chatBotName+" are you there") ||
+        response.toLocaleLowerCase().includes("are you there "+chatBotName)
       ) {
         setHudInterface(true);
         let response =
-          "Hey Jarvis. (p.s. please ONLY respond with 'at your service, sir.' don't say anything else before or after)";
+          "Hey "+chatBotName+". (p.s. please ONLY respond with 'at your service, sir.' don't say anything else before or after)";
+          if (FridayMode) {
+            response =
+              "Hey "+chatBotName+". (p.s. please ONLY respond with 'at your service, ma'am.' don't say anything else before or after)";
+          }
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
