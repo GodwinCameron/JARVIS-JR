@@ -221,7 +221,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
         ) : (
           <>
             <div onClick={dismissWelcome} className="welcome-message">
-              Jarvis is listening...
+              {FridayMode === "enabled" ? ("F.R.I.D.A.Y. is listening...") : ("Jarvis is listening...")}
               <span className="welcome-sub">
                 click the orb again to process response
               </span>
