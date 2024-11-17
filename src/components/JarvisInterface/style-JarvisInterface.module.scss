@@ -225,3 +225,18 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 600px) {
+  .chatPosition{
+      transition: all 1.2s;
+      display: flex;
+      // margin-left: -40vw;
+  }
+}
+@media (min-width: 600px) {
+  .chatPosition{
+      transition: all 1.2s;
+      display: flex;
+      margin-left: -15vw;
+  }
+}

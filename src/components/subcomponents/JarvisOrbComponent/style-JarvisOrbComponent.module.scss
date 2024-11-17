@@ -1,0 +1,173 @@
+.orbContainer {
+  height: 90px;
+  width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.8s;
+  border-radius: 50%;
+  &:hover{
+    scale: 1.7;
+    cursor: pointer;
+    box-shadow: 0px 0px 30px 20px #01f2ff12 inset;
+    
+  }
+  .layer {
+    display: flex;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+  }
+  .outerLayer{
+    background-image: url("../../../assets/orb2/outerlayer.png");
+    animation: horizontalSpin infinite 7s linear;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .layer1 {
+    background-image: url("../../../assets/orb2/layer1.png");
+    animation: verticleSpin infinite 5s linear;
+    width: 80%;
+    height: 80%;
+    z-index: 1;
+  }
+  .layer2 {
+    background-image: url("../../../assets/orb2/layer2.png");
+    animation: jitter infinite 3s ease-out;
+    width: 60%;
+    height: 60%;
+  }
+  .layer3 {
+    background-image: url("../../../assets/orb2/layer3.png");
+    animation: slowSpin infinite 27s linear;
+    width: 50%;
+    height: 50%;
+  }
+  .layer4 {
+    background-image: url("../../../assets/orb2/layer4.png");
+    animation: jitter2 infinite 12s ease-out;
+    width: 40%;
+    height: 40%;
+  }
+  .layer5 {
+    background-image: url("../../../assets/orb2/layer5.png");
+    animation: slowSpin infinite 27s linear;
+    width: 40%;
+    height: 40%;
+  }
+  .layer6 {
+    background-image: url("../../../assets/orb2/layer6.png");
+    animation: slowSpin infinite 27s linear;
+    width: 25%;
+    height: 25%;
+  }
+  .layer7 {
+    background-image: url("../../../assets/orb2/layer7.png");
+    animation: slowSpin infinite 27s linear reverse;
+    width: 20%;
+    height: 20%;
+  }
+  .layer8 {
+    background-image: url("../../../assets/orb2/layer8.png");
+    animation: slowSpin infinite 27s linear reverse;
+    width: 20%;
+    height: 20%;
+  }
+    .layer9 {
+        background-image: url("../../../assets/orb2/layer9.png");
+        width: 15%;
+        height: 15%;
+    }
+    .layer0 {
+        background-image: url("../../../assets/orb2/layer0.png");
+        width: 7%;
+        height: 7%;
+    }
+}
+
+@media (max-width: 600px) {
+    .chatPosition{
+        transition: all 1.2s;
+        display: flex;
+        // margin-left: -40vw;
+    }
+}
+@media (min-width: 600px) {
+    .chatPosition{
+        transition: all 1.2s;
+        display: flex;
+        margin-left: -15vw;
+    }
+}
+
+
+
+@keyframes verticleSpin {
+  0% {
+    transform: scaleX(1) rotateY(0deg);
+  }
+  50% {
+    transform: scaleX(0) rotateY(90deg);
+  }
+  100% {
+    transform: scaleX(1) rotateY(180deg);
+  }
+}
+@keyframes horizontalSpin {
+    0% {
+      transform: scaleY(1) rotateX(0deg);
+    }
+    50% {
+      transform: scaleY(0) rotateX(90deg);
+    }
+    100% {
+      transform: scaleY(1) rotateX(180deg);
+    }
+  }
+
+@keyframes jitter {
+  0% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  75% {
+    transform: rotate(45deg);
+  }
+  100% {
+    ttransform: rotate(0deg);
+  }
+}
+
+@keyframes slowSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes jitter2 {
+    0% {
+      transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(45deg);
+    }
+    50% {
+      transform: rotate(20deg);
+    }
+    75% {
+      transform: rotate(270deg);
+    }
+    90% {
+      ttransform: rotate(360deg);
+    }
+    100%{
+        transform: rotate(20deg);
+    }
+  }

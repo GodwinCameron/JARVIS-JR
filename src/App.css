@@ -199,7 +199,7 @@ a {
   gap: 1vh;
   margin-top: 2vh;
   padding: 10px;
-  border: 1px solid #FF4D00;
+  border: 1px solid #ff4d00;
   border-radius: 7px;
   max-width: 360px;
   max-height: 300px;
@@ -218,8 +218,8 @@ a {
 }
 /* Width of the scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;      /* for vertical scrollbar */
-  height: 12px;     /* for horizontal scrollbar */
+  width: 12px; /* for vertical scrollbar */
+  height: 12px; /* for horizontal scrollbar */
 }
 
 /* The track of the scrollbar */
@@ -238,7 +238,7 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #cafbfe; /* Darker color on hover */
 }
-.chatSection{
+.chatSection {
   display: flex;
   flex-direction: row;
 }
@@ -273,9 +273,7 @@ a {
   color: #01f4ff;
 }
 
-
-
-code{
+code {
   font-family: "Courier New", Courier, monospace;
   background-color: #232323;
   padding: 5px;
@@ -289,8 +287,6 @@ code{
   max-width: 350px;
 }
 
-
-
 .launch-options {
   display: flex;
   flex-direction: column;
@@ -302,17 +298,17 @@ code{
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
   color: #01f4ff;
-  align-items: center; 
-  justify-content: center; 
-  font-family: 'Courier New', Courier, monospace;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", Courier, monospace;
 }
 
-.show-live-chat-options{
+.show-live-chat-options {
   display: flex;
   flex-direction: row;
   gap: 2vw;
 }
-.show-live-chat-options-choice{
+.show-live-chat-options-choice {
   font-family: monospace;
   display: flex;
   align-items: center;
@@ -326,23 +322,22 @@ code{
   width: 200px;
   height: 100px;
 }
-.disable-red{
+.disable-red {
   border: 1px solid red;
   color: red;
 }
 
-.show-live-chat-options-choice:hover{
+.show-live-chat-options-choice:hover {
   scale: 1.05;
   cursor: pointer;
   color: black;
   background-color: #01f2ff5e;
 }
-.disable-red:hover{
+.disable-red:hover {
   background-color: rgba(255, 0, 0, 0.315);
 }
 
-
-.vid-button{
+.vid-button {
   color: #01f4ff;
   display: flex;
   align-self: center;
@@ -358,6 +353,13 @@ code{
 
 .chat-box,
 .chat-box-turbo {
-  overflow-y: auto; /* Allow vertical scrolling */
-  max-height: 300px; /* Set max-height for scrolling */
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+@media (min-width: 601px) {
+  .chat-box,
+  .chat-box-turbo {
+    border-top-left-radius: 0;
+  }
 }

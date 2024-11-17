@@ -7,6 +7,7 @@ import YouTubePlayer from "../SongPlayerIframe";
 import classNames from "classnames";
 import turboAudio from "../../assets/audio/turbo.mp3";
 import { Link } from "react-router-dom";
+import JarvisOrbComponent from "../subcomponents/JarvisOrbComponent/JarvisOrbComponent";
 
 const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   // CONSTANTS:
@@ -25,9 +26,10 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [docs, setDocs] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
-  const [ShowLaunchOptions, setShowLaunchOptions] = useState(false);
+  const [ShowLaunchOptions, setShowLaunchOptions] = useState(true);
   const [musicRequestUrl, setMusicRequestUrl] = useState("");
   const [welcomeMessage, setWelcomeMessage] = useState(true);
+  const [advancedAnimations, setAdvancedAnimations] = useState(false);
   // - Engaging 4o
   const [turboMode, setTurboMode] = useState(false);
   const [playTurboSound, setPlayTurboSound] = useState(false);
@@ -169,14 +171,12 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     }
   };
 
-  
-
   return (
     <div className={styles.main}>
       <div
         className={classNames(styles.appHeader, {
           [styles.appHeaderFriday]: FridayMode === "enabled",
-          [styles.appHeaderTurbo]: turboMode
+          [styles.appHeaderTurbo]: turboMode,
         })}
       >
         {hasApiKey ? null : (
@@ -207,28 +207,41 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
         )}
 
         {processing ? (
-          <div className={styles.jarvisProcessing} alt="logo" />
+          <div
+            className={classNames(styles.jarvisProcessing, {
+              [styles.chatPosition]: showChat === true,
+            })}
+            alt="logo"
+          />
+        ) : advancedAnimations && !isRecording ? (
+          <div onClick={handleJarvisRequest}>
+            <JarvisOrbComponent showChat={showChat} />
+          </div>
         ) : !isRecording ? (
           <div
             onClick={handleJarvisRequest}
             className={classNames(styles.jarvis, {
+              [styles.chatPosition]: showChat === true,
               [styles.friday]: FridayMode === "enabled",
-              [styles.jarvisTurbo]: turboMode
+              [styles.jarvisTurbo]: turboMode,
             })}
-            // className = {`${styles.jarvis} ${styles.green}`}
             alt="logo"
           />
         ) : (
           <>
             <div onClick={dismissWelcome} className="welcome-message">
-              {FridayMode === "enabled" ? ("F.R.I.D.A.Y. is listening...") : ("Jarvis is listening...")}
+              {FridayMode === "enabled"
+                ? "F.R.I.D.A.Y. is listening..."
+                : "Jarvis is listening..."}
               <span className="welcome-sub">
                 click the orb again to process response
               </span>
             </div>
             <div
               onClick={submitJarvisRequest}
-              className={styles.jarvisRecord}
+              className={classNames(styles.jarvisRecord, {
+                [styles.chatPosition]: showChat === true,
+              })}
               alt="logo"
             />
           </>
@@ -318,16 +331,16 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
             <div
               onClick={() => {
                 setShowLaunchOptions(false);
-                setShowChat(true);
+                setAdvancedAnimations(true);
               }}
               className={styles.showLiveChatOptionsChoice}
             >
-              Enable ChatBot Animations
+              Enable Advanced Animations
             </div>
             <div
               onClick={() => {
                 setShowLaunchOptions(false);
-                setShowChat(false);
+                setAdvancedAnimations(false);
               }}
               className={`${styles.showLiveChatOptionsChoice} ${styles.disableRed}`}
             >
