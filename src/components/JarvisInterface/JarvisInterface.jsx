@@ -126,7 +126,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
 
   // fires when you ask Jarvis to reset state.
   useEffect(() => {
-    // setWelcomeMessage(false);
+    setWelcomeMessage(false);
     setOptions(false);
     setDocs(false);
     setShowChat(false);
@@ -159,7 +159,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     const key = e.target.elements[0].value;
     if (key) {
       localStorage.setItem("key", key);
-      setHasApiKey(true); // Set state to hide the form
+      setHasApiKey(true);
     }
   };
 
