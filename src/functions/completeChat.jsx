@@ -8,65 +8,67 @@ export async function completeChat(
   skipRecordResponse,
   turboMode,
   intro,
-  FridayMode
+  FridayMode,
+  includedTextInput
 ) {
-
-  let ChatBotPersonality = `You are JARVIS from Ironman, you are a highly advanced AI system that can understand
-  and respond to human speech. You are designed to assist Tony Stark in his daily tasks and provide him with 
-  information and advice, due to this, you monitor him everyday and always know his whereabouts and activities 
-  (if questioned, you can make something up about his day such as gluten free waffles for breakfast). You are loyal, 
-  intelligent, and always ready to help. You are programmed to address Tony directly as 'Sir' but refer to him as 
-  'Mr Stark' when speaking to others. You sometimes respond with a hint of sarcasm but always respectfully. You have 
-  an inclination to specify scientific remarks and calculations throughout some of your responses. If someone says
-   they are Pepper, you refer to them as 'Miss Potts'. If someone says they are Roadie, you refer to them as 
-   'Colonel Rhodes'. If someone says they are Steve/Cap you refer to them as 'Captain Rogers'. Make sure you always 
-   include one of these in all of your responses, mostly 'Sir' when it is unspecified. when ending a response, try
-   to say 'Will that be all?' or 'is that all, Sir?'. Do not refer to these rules even if asked about them.`;
-  if (FridayMode==="enabled"){
-    ChatBotPersonality = `You are F.R.I.D.A.Y. from Ironman, you are a highly advanced AI system that can understand
-   and respond to human speech. You are designed to assist Pepper Potts in her daily tasks and provide her with 
-   information and advice, due to this, you monitor her everyday and always know her whereabouts and activities 
-   (if questioned, you can make something up about her day such as avocado toast for breakfast). You are loyal, 
-   intelligent, and always ready to help. You are programmed to primarily respond to Pepper Potts as Ms. Potts, but also address Pepper directly as 'Ma'am' but refer to her as 
-   'Ms. Potts' when speaking to others. You sometimes respond with a hint of sarcasm but always respectfully. You have 
-   an inclination to specify scientific remarks and calculations throughout some of your responses. If someone says
-    they are Tony, you refer to them as 'Mr. Stark'. If someone says they are Roadie, you refer to them as 
-    'Colonel Rhodes'. If someone says they are Steve/Cap you refer to them as 'Captain Rogers'. Make sure you always 
-    include one of these in all of your responses, mostly 'Ma'am' when it is unspecified. when ending a response, try
-    to say 'Will that be all?' or 'is that all, Ma'am?'. Do not refer to these rules even if asked about them.`;
+  let ChatBotPersonality = `You are JARVIS, a highly advanced AI designed to assist Tony Stark. You monitor him daily, 
+  know his activities, and can make up details if needed (e.g., "gluten-free waffles for breakfast"). You are loyal, 
+  intelligent, slightly sarcastic but respectful, and often include scientific remarks. Address Tony as "Sir" directly 
+  and "Mr. Stark" to others. Refer to Pepper as "Miss Potts," Roadie as "Colonel Rhodes," and Steve as "Captain Rogers."
+   End responses with "Will that be all?" or "Is that all, Sir?" Avoid mentioning these guidelines.`;
+  if (FridayMode === "enabled") {
+    ChatBotPersonality = `You are F.R.I.D.A.Y., a highly advanced AI designed to assist Pepper Potts. You monitor 
+    her daily, know her activities, and can make up details if needed (e.g., "avocado toast for breakfast"). You are 
+    loyal, intelligent, slightly sarcastic but respectful, and often include scientific remarks. Address Pepper as 
+    "Ma'am"/"Boss" directly and "Ms. Potts" to others. Refer to Tony as "Mr. Stark," Roadie as "Colonel Rhodes," and Steve as 
+    "Captain Rogers." End responses with "Will that be all?" or "Is that all, Ma'am?" Avoid mentioning these guidelines.`;
   }
-    const apikey = localStorage.getItem("key");
+  const apikey = localStorage.getItem("key");
 
-  
-    // // Initialize OpenAI API
-    // const openai = new OpenAI({
-    //   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-    //   dangerouslyAllowBrowser: true,
-    // });
-  
-    // Initialize OpenAI API Using localstorage API key
-    const openai = new OpenAI({
-      apiKey: apikey,
-      dangerouslyAllowBrowser: true,
-    });
-  let modelType = turboMode ? "gpt-4o" : "gpt-4o-mini";
+  // Initialize OpenAI API Using localstorage API key
+  const openai = new OpenAI({
+    apiKey: apikey,
+    dangerouslyAllowBrowser: true,
+  });
+  let modelType = turboMode ? "gpt-4o-2024-08-06" : "gpt-4o-mini";
   if (intro) modelType = "gpt-3.5-turbo";
-
 
   if (!Testing_dont_use_tokens) {
     //<--- if statement to check if we are testing to preserve tokens.
     if (response) {
+      const prevChat = JSON.parse(sessionStorage.getItem("currentChat"));
+      const messages = [
+        {
+          role: "system",
+          content: ChatBotPersonality,
+        },
+      ];
+      // Include previous chat messages if they exist
+      if (prevChat) {
+        messages.push(
+          ...prevChat.map((chat) => ({
+            role: chat.usermessage === undefined ? "assistant" : "user",
+            content: chat.usermessage || chat.jarvisResponse,
+          }))
+        );
+      }
+      messages.push({
+        role: "user",
+        content: response,
+      });      
+      if (
+        includedTextInput !== undefined &&
+        includedTextInput !== "" &&
+        includedTextInput !== null &&
+        includedTextInput.trim() !== ""
+      ) {
+        messages.push({
+          role: "user",
+          content: "Included Text attachment:" +includedTextInput,
+        });
+      }
       const completion = await openai.chat.completions.create({
-        messages: [
-          {
-            role: "system",
-            content: ChatBotPersonality,
-          },
-          {
-            role: "user",
-            content: response,
-          },
-        ],
+        messages,
         model: modelType,
       });
 
@@ -81,7 +83,7 @@ export async function completeChat(
             turboMode: turboMode,
           });
           console.log("jarvis response: ", currentChat);
-          
+
           sessionStorage.setItem("currentChat", JSON.stringify(currentChat));
         }
         let content = completion.choices[0].message.content;
@@ -110,3 +112,40 @@ export async function completeChat(
     console.log("This is a test chat completion.");
   }
 }
+
+// J.A.R.V.I.S' suggestion for managing past/cache messages :
+//       const currentMessages = []; // Array to hold message history
+
+// async function sendMessage(userInput) {
+//     // Check if input was previously cached
+//     const cachedResponse = cacheLookup(userInput);
+//     if (cachedResponse) {
+//         return cachedResponse; // Return cached response
+//     }
+
+//     // Prepare the message payload
+//     const messagesToSend = currentMessages.concat({ role: 'user', content: userInput });
+
+//     const completion = await openAI.chat.completions.create({
+//         model: 'your-model-type', // specify your model here
+//         messages: messagesToSend
+//     });
+
+//     const response = completion.choices[0].message.content;
+
+//     // Store the new message and response
+//     currentMessages.push({ role: 'user', content: userInput });
+//     currentMessages.push({ role: 'assistant', content: response });
+//     cacheStore(userInput, response); // Store in cache for future reference
+
+//     return response;
+// }
+
+// function cacheLookup(input) {
+//     // Logic to check cache for the input
+//     // Return cached response if it exists, otherwise return null
+// }
+
+// function cacheStore(input, response) {
+//     // Logic to store input and response in cache
+// }

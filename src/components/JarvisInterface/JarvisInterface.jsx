@@ -26,17 +26,21 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [docs, setDocs] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
-  const [ShowLaunchOptions, setShowLaunchOptions] = useState(true);
+  const [ShowLaunchOptions, setShowLaunchOptions] = useState(false);
   const [musicRequestUrl, setMusicRequestUrl] = useState("");
-  const [welcomeMessage, setWelcomeMessage] = useState(true);
-  const [advancedAnimations, setAdvancedAnimations] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState(false);
+  const [advancedAnimations, setAdvancedAnimations] = useState(true);
+  // - Text Input:
+  const [includeTextMessage, setIncludeTextMessage] = useState(false);
+  const [includedTextInput, setIncludedTextInput] = useState("");
+  const [awaitingTextInput, setAwaitingTextInput] = useState(false);
   // - Engaging 4o
   const [turboMode, setTurboMode] = useState(false);
   const [playTurboSound, setPlayTurboSound] = useState(false);
   const audioRef2 = useRef(null);
   const [hasApiKey, setHasApiKey] = useState(false);
   // F.R.I.D.A.Y. Mode
-  const [FridayMode, setFridayMode] = useState("unset");
+  const [FridayMode, setFridayMode] = useState("disabled");
 
   // primary useEffect hook to check for microphone permissions and browser support.
   useEffect(() => {
@@ -74,27 +78,55 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     setIsRecording(false);
     console.log("Submitting request...");
     setProcessing(true);
+
+    if (awaitingTextInput) {
+        console.log("Processing included text input:", includedTextInput);
+        await stopRecording(
+            mediaRecorderRef,
+            audioChunksRef,
+            audioURL,
+            setAudioURL,
+            Testing_dont_use_tokens,
+            setAutoPlay,
+            setOptions,
+            setHudInterface,
+            setDocs,
+            showChat,
+            setShowChat,
+            setShowIframe,
+            setMusicRequestUrl,
+            setTurboMode,
+            turboMode,
+            setPlayTurboSound,
+            setEndRequest,
+            FridayMode,
+            includedTextInput 
+        );
+        return;
+    }
+
     await stopRecording(
-      mediaRecorderRef,
-      audioChunksRef,
-      audioURL,
-      setAudioURL,
-      Testing_dont_use_tokens,
-      setAutoPlay,
-      setOptions,
-      setHudInterface,
-      setDocs,
-      showChat,
-      setShowChat,
-      setShowIframe,
-      setMusicRequestUrl,
-      setTurboMode,
-      turboMode,
-      setPlayTurboSound,
-      setEndRequest,
-      FridayMode
+        mediaRecorderRef,
+        audioChunksRef,
+        audioURL,
+        setAudioURL,
+        Testing_dont_use_tokens,
+        setAutoPlay,
+        setOptions,
+        setHudInterface,
+        setDocs,
+        showChat,
+        setShowChat,
+        setShowIframe,
+        setMusicRequestUrl,
+        setTurboMode,
+        turboMode,
+        setPlayTurboSound,
+        setEndRequest,
+        FridayMode,
+        includedTextInput
     );
-  };
+};
 
   // fires after a jarvis response is received.
   useEffect(() => {
@@ -105,6 +137,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
       setAutoPlay(false);
       setProcessing(false);
       setEndRequest(false);
+      setIncludeTextMessage(false);
+      setAwaitingTextInput(false);
     }
   }, [autoPlay]);
 
@@ -112,6 +146,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   useEffect(() => {
     setAutoPlay(false);
     setProcessing(false);
+    setIncludeTextMessage(false);
+    setAwaitingTextInput(false);
   }, [endRequest]);
 
   // fires after turbo mode is engaged.
@@ -133,6 +169,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     setShowIframe(false);
     setMusicRequestUrl("");
     setTurboMode(false);
+    setAwaitingTextInput(false);
+    setIncludeTextMessage(false);
     document.getElementById("cog").style.display = "flex";
   }, [HudInterface]);
 
@@ -171,6 +209,32 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     }
   };
 
+  const displayTextInput = () => {
+    setIncludeTextMessage(true);
+    setAwaitingTextInput(true);
+  };
+
+  const sendIncludedTextInput = () => {
+    const text = document.querySelector("textarea")?.value || ""; // Get the text safely
+    if (text.trim() === "") {
+      alert("Please enter some text before submitting.");
+      return;
+    }
+  
+    setIncludedTextInput(text); // This will trigger the useEffect above
+    setIncludeTextMessage(false);
+    setAwaitingTextInput(false);
+  };
+  
+
+useEffect(() => {
+  console.log("Included text input changed:", includedTextInput);
+  
+  if (!awaitingTextInput && includedTextInput.trim() !== "") {
+    submitJarvisRequest();
+  }
+}, [includedTextInput]);
+
   return (
     <div className={styles.main}>
       <div
@@ -188,7 +252,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
           </div>
         )}
 
-        {FridayMode == "unset" ? (
+        {FridayMode === "unset" ? (
           <div className={styles.welcomeMessage}>
             Enable F.R.I.D.A.Y. ?{" "}
             <button onClick={() => enableFriday(true)}>Yes</button>
@@ -227,7 +291,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
             })}
             alt="logo"
           />
-        ) : (
+        ) : awaitingTextInput ? (<h3>awaiting text input...</h3>) : (
           <>
             <div onClick={dismissWelcome} className="welcome-message">
               {FridayMode === "enabled"
@@ -238,12 +302,22 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
               </span>
             </div>
             <div
+              // =========================================================================================================****
               onClick={submitJarvisRequest}
               className={classNames(styles.jarvisRecord, {
                 [styles.chatPosition]: showChat === true,
               })}
               alt="logo"
             />
+          </>
+        )}
+
+        {includeTextMessage && (
+          <>
+            <div className={styles.textInputField}>
+              <textarea />
+              <button onClick={sendIncludedTextInput}>➢</button>
+            </div>
           </>
         )}
 
@@ -260,6 +334,9 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
                   </Link>
                   <div onClick={displayIframe} className={styles.option}>
                     Search for a song
+                  </div>
+                  <div onClick={displayTextInput} className={styles.option}>
+                    Type / include text.
                   </div>
                 </div>
               </>
@@ -320,8 +397,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
           </p>
           <br />
           <p>
-            before we begin, select whether or not you want to see a live
-            transcript of your chat with JARVIS.JR
+            before we begin, select whether or not you want to see custom
+            aminations of JARVIS.JR
           </p>
           <p>
             &#40;Don't worry you can change this later or even ask jarvis

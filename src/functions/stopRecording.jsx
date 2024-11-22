@@ -1,5 +1,3 @@
-import OpenAI from "openai";
-import { completeChat } from "./completeChat";
 import { transcribeAudio } from "./transcribeAudio";
 
 export const stopRecording = async (
@@ -20,7 +18,8 @@ export const stopRecording = async (
   turboMode,
   setPlayTurboSound,
   setEndRequest,
-  FridayMode
+  FridayMode,
+  includedTextInput
 ) => {
   mediaRecorderRef.current.stop();
   // <---- Wait for the media recorder to fully stop before creating the blob
@@ -49,7 +48,8 @@ export const stopRecording = async (
       turboMode,
       setPlayTurboSound,
       setEndRequest,
-      FridayMode
+      FridayMode,
+      includedTextInput
     );
     audioChunksRef.current = [];
   };

@@ -1,6 +1,5 @@
 import OpenAI from "openai";
 import { completeChat } from "./completeChat";
-import { useEffect } from "react";
 
 export const transcribeAudio = async (
   audioBlob,
@@ -17,7 +16,8 @@ export const transcribeAudio = async (
   turboMode,
   setPlayTurboSound,
   setEndRequest,
-  FridayMode
+  FridayMode,
+  includedTextInput
 ) => {
   // Create a File object from the Blob (audio)
   const file = new File([audioBlob], "speech.webm", { type: "audio/webm" });
@@ -30,6 +30,9 @@ export const transcribeAudio = async (
   console.log("File:", file);
   console.log("File size:", file.size);
   console.log("File type:", file.type);
+
+  console.log("Included Text at TranscribeAudio:", includedTextInput);
+  
 
   const apikey = localStorage.getItem("key");
 
@@ -137,7 +140,6 @@ export const transcribeAudio = async (
       ) {
         sessionStorage.removeItem("currentChat");
         let response = "I've cleared the chat history.";
-        let skipRecordResponse;
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
@@ -181,14 +183,14 @@ export const transcribeAudio = async (
       ) {
         setShowChat(true);
         let response =
-          "I've asked to display the live chat transcription, say something along the lines of 'showing live chat' or 'displaying live chat' or 'pulling up our current chat history'";
+          "I've asked to display the live chat transcription, say something along the lines of 'showing live chat' or 'displaying live chat' or 'pulling up our current chat history'. Do not say anything else.";
         const completeConvo = await completeChat(
           response,
           Testing_dont_use_tokens,
           setAutoPlay,
           skipRecordResponse,
           turboMode,
-          intro,
+          (intro=true),
           FridayMode
         );
         return completeConvo;
@@ -430,7 +432,8 @@ export const transcribeAudio = async (
           skipRecordResponse,
           turboMode,
           (intro = true),
-          FridayMode
+          FridayMode,
+          includedTextInput
         );
         return completeConvo;
       }
@@ -441,7 +444,8 @@ export const transcribeAudio = async (
         skipRecordResponse,
         turboMode,
         intro,
-        FridayMode
+        FridayMode,
+        includedTextInput
       );
     }
   } else {

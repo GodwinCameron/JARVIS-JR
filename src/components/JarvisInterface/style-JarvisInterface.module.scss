@@ -87,6 +87,47 @@
       }
       animation: App-logo-spin reverse infinite 35s linear;
     }
+    .textInputField {
+      display: flex;
+      flex-direction: row;
+      min-width: 150px;
+      min-height: 20px;
+      max-width: 470px;
+      max-height: 200px;
+      textarea {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0);
+        min-width: 150px;
+        min-height: 20px;
+        max-width: 420px;
+        max-height: 200px;
+        border: solid 1px #01f4ff;
+        color: #cafbfe;
+        padding: 5px;
+        &:focus {
+          outline: none;
+          border: solid 2px #9ffaff;
+        }
+      }
+      button{
+        background-color: rgba(0, 0, 0, 0);
+        color: #01f4ff;
+        outline: none;
+        border: solid 1px #01f4ff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        transform: rotate(-30deg);
+        margin-left: 1vw;
+        margin-top: auto;
+        &:hover {
+          background-color: #01f2ff5e;
+          border: solid 2px #01f4ff;
+          cursor: pointer;
+        }
+      }
+
+    }
 
     .workArea {
       display: flex;
@@ -227,16 +268,16 @@
 }
 
 @media (max-width: 600px) {
-  .chatPosition{
-      transition: all 1.2s;
-      display: flex;
-      // margin-left: -40vw;
+  .chatPosition {
+    transition: all 1.2s;
+    display: flex;
+    // margin-left: -40vw;
   }
 }
 @media (min-width: 600px) {
-  .chatPosition{
-      transition: all 1.2s;
-      display: flex;
-      margin-left: -15vw;
+  .chatPosition {
+    transition: all 1.2s;
+    display: flex;
+    margin-left: -15vw;
   }
 }
