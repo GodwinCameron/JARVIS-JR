@@ -26,7 +26,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [docs, setDocs] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
-  const [ShowLaunchOptions, setShowLaunchOptions] = useState(false);
+  const [ShowLaunchOptions, setShowLaunchOptions] = useState(true);
   const [musicRequestUrl, setMusicRequestUrl] = useState("");
   const [welcomeMessage, setWelcomeMessage] = useState(false);
   const [advancedAnimations, setAdvancedAnimations] = useState(true);
