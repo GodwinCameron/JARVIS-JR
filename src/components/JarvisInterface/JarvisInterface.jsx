@@ -40,7 +40,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const audioRef2 = useRef(null);
   const [hasApiKey, setHasApiKey] = useState(false);
   // F.R.I.D.A.Y. Mode
-  const [FridayMode, setFridayMode] = useState("disabled");
+  const [FridayMode, setFridayMode] = useState("unset");
 
   // primary useEffect hook to check for microphone permissions and browser support.
   useEffect(() => {
