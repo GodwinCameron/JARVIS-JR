@@ -142,6 +142,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
       setEndRequest(false);
       setIncludeTextMessage(false);
       setAwaitingTextInput(false);
+      setIncludedTextInput("");
     }
   }, [autoPlay]);
 
@@ -290,9 +291,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
 
             {processing ? (
               <div
-                className={classNames(styles.jarvisProcessing, {
-                  [styles.chatPosition]: showChat === true,
-                })}
+                className={styles.jarvisProcessing}
                 alt="logo"
               />
             ) : advancedAnimations && !isRecording ? (
@@ -303,7 +302,6 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
               <div
                 onClick={handleJarvisRequest}
                 className={classNames(styles.jarvis, {
-                  [styles.chatPosition]: showChat === true,
                   [styles.friday]: FridayMode === "enabled",
                   [styles.jarvisTurbo]: turboMode,
                 })}
@@ -324,9 +322,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
                 <div
                   // =========================================================================================================****
                   onClick={submitJarvisRequest}
-                  className={classNames(styles.jarvisRecord, {
-                    [styles.chatPosition]: showChat === true,
-                  })}
+                  className={styles.jarvisRecord}
                   alt="logo"
                 />
               </>
