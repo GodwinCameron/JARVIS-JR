@@ -17,7 +17,8 @@ export const transcribeAudio = async (
   setPlayTurboSound,
   setEndRequest,
   FridayMode,
-  includedTextInput
+  includedTextInput,
+  setFridayMode
 ) => {
   // Create a File object from the Blob (audio)
   const file = new File([audioBlob], "speech.webm", { type: "audio/webm" });
@@ -434,6 +435,80 @@ export const transcribeAudio = async (
           (intro = true),
           FridayMode,
           includedTextInput
+        );
+        return completeConvo;
+      }
+      if (
+        response.toLocaleLowerCase().includes("i want to talk to friday") ||
+        response.toLocaleLowerCase().includes("i wanna talk to friday") ||
+        response.toLocaleLowerCase().includes("i want to speak to friday") ||
+        response.toLocaleLowerCase().includes("i wanna speak to friday") ||
+        response.toLocaleLowerCase().includes("bootup friday's systems") ||
+        response.toLocaleLowerCase().includes("bootup fridays systems") ||
+        response.toLocaleLowerCase().includes("bootup friday") ||
+        response.toLocaleLowerCase().includes("boot up friday's systems") ||
+        response.toLocaleLowerCase().includes("boot up fridays systems") ||
+        response.toLocaleLowerCase().includes("boot up friday")
+      ) {
+        setHudInterface(true);
+        setFridayMode("enabled");
+        let response =
+          "I want to talk to F.R.I.D.A.Y.(p.s. please ONLY respond with 'porting systems over to FRIDAY' don't say anything else before or after)";
+          
+        const completeConvo = await completeChat(
+          response,
+          Testing_dont_use_tokens,
+          setAutoPlay,
+          skipRecordResponse,
+          turboMode,
+          (intro = true),
+          FridayMode,
+          includedTextInput
+        );
+        return completeConvo;
+      }
+      if (
+        response.toLocaleLowerCase().includes("i want to talk to jarvis") ||
+        response.toLocaleLowerCase().includes("i want to talk to travis") ||
+        response.toLocaleLowerCase().includes("i want to talk to drivers") ||
+        response.toLocaleLowerCase().includes("i wanna talk to jarvis") ||
+        response.toLocaleLowerCase().includes("i wanna talk to travis") ||
+        response.toLocaleLowerCase().includes("i wanna talk to drivers") ||
+        response.toLocaleLowerCase().includes("boot up jarvis' systems") ||
+        response.toLocaleLowerCase().includes("boot up travis systems") ||
+        response.toLocaleLowerCase().includes("boot up travis' systems") ||
+        response.toLocaleLowerCase().includes("boot up drivers systems") ||
+        response.toLocaleLowerCase().includes("boot up jarvis systems") ||
+        response.toLocaleLowerCase().includes("boot up travis systems") ||
+        response.toLocaleLowerCase().includes("boot up drivers systems") ||
+        response.toLocaleLowerCase().includes("boot up travis") ||
+        response.toLocaleLowerCase().includes("boot up drivers") ||
+        response.toLocaleLowerCase().includes("boot up jarvis") ||
+        response.toLocaleLowerCase().includes("bootup jarvis' systems") ||
+        response.toLocaleLowerCase().includes("bootup travis systems") ||
+        response.toLocaleLowerCase().includes("bootup travis' systems") ||
+        response.toLocaleLowerCase().includes("bootup drivers systems") ||
+        response.toLocaleLowerCase().includes("bootup jarvis systems") ||
+        response.toLocaleLowerCase().includes("bootup travis systems") ||
+        response.toLocaleLowerCase().includes("bootup drivers systems") ||
+        response.toLocaleLowerCase().includes("bootup travis") ||
+        response.toLocaleLowerCase().includes("bootup drivers") ||
+        response.toLocaleLowerCase().includes("bootup jarvis")
+      ) {
+        setHudInterface(true);
+        setFridayMode("disabled");
+        let response =
+          "I want to talk to J.A.R.V.I.S.(p.s. please ONLY respond with 'porting systems over to JARVIS' don't say anything else before or after)";
+          
+        const completeConvo = await completeChat(
+          response,
+          Testing_dont_use_tokens,
+          setAutoPlay,
+          skipRecordResponse,
+          turboMode,
+          (intro = true),
+          FridayMode,
+          includedTextInput,
         );
         return completeConvo;
       }

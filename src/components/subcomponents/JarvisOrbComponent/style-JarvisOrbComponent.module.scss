@@ -1,17 +1,17 @@
 .orbContainer {
-  height: 90px;
-  width: 90px;
+  height: 120px;
+  width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   transition: all 0.8s;
   border-radius: 50%;
-  &:hover{
-    scale: 1.7;
+  z-index: 1000;
+  &:hover {
+    scale: 1.2;
     cursor: pointer;
     box-shadow: 0px 0px 30px 20px #01f2ff12 inset;
-    
   }
   .layer {
     display: flex;
@@ -19,8 +19,22 @@
     background-size: cover;
     position: absolute;
   }
-  .outerLayer{
+  .outerLayer {
     background-image: url("../../../assets/orb2/outerlayer.png");
+    animation: horizontalSpin infinite 7s linear;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .outerLayerTurbo {
+    background-image: url("../../../assets/orb2/outerlayer-turbo.png");
+    animation: horizontalSpin infinite 7s linear;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .outerLayerFriday {
+    background-image: url("../../../assets/orb2/outerlayer-friday.png");
     animation: horizontalSpin infinite 7s linear;
     width: 100%;
     height: 100%;
@@ -36,73 +50,116 @@
   .layer2 {
     background-image: url("../../../assets/orb2/layer2.png");
     animation: jitter infinite 3s ease-out;
-    width: 60%;
-    height: 60%;
+    width: 70%;
+    height: 70%;
   }
   .layer3 {
     background-image: url("../../../assets/orb2/layer3.png");
     animation: slowSpin infinite 27s linear;
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
   }
   .layer4 {
     background-image: url("../../../assets/orb2/layer4.png");
     animation: jitter2 infinite 12s ease-out;
-    width: 40%;
-    height: 40%;
+    width: 50%;
+    height: 50%;
   }
   .layer5 {
     background-image: url("../../../assets/orb2/layer5.png");
     animation: slowSpin infinite 27s linear;
-    width: 40%;
-    height: 40%;
+    width: 50%;
+    height: 50%;
   }
   .layer6 {
     background-image: url("../../../assets/orb2/layer6.png");
     animation: slowSpin infinite 27s linear;
-    width: 25%;
-    height: 25%;
+    width: 35%;
+    height: 35%;
   }
   .layer7 {
     background-image: url("../../../assets/orb2/layer7.png");
     animation: slowSpin infinite 27s linear reverse;
-    width: 20%;
-    height: 20%;
+    width: 30%;
+    height: 30%;
   }
   .layer8 {
     background-image: url("../../../assets/orb2/layer8.png");
     animation: slowSpin infinite 27s linear reverse;
-    width: 20%;
-    height: 20%;
+    width: 30%;
+    height: 30%;
   }
-    .layer9 {
-        background-image: url("../../../assets/orb2/layer9.png");
-        width: 15%;
-        height: 15%;
-    }
-    .layer0 {
-        background-image: url("../../../assets/orb2/layer0.png");
-        width: 7%;
-        height: 7%;
-    }
+  .layer9 {
+    background-image: url("../../../assets/orb2/layer9.png");
+    width: 25%;
+    height: 25%;
+  }
+  .layer0 {
+    background-image: url("../../../assets/orb2/layer0.png");
+    width: 12%;
+    height: 12%;
+  }
+  .layer0Turbo {
+    background-image: url("../../../assets/orb2/layer0-turbo.png");
+  }
+  .layer1Turbo{
+    background-image: url("../../../assets/orb2/layer1-turbo.png");
+  }
+  .layer2Turbo{
+    background-image: url("../../../assets/orb2/layer2-turbo.png");
+  }
+  .layer3Turbo{
+    background-image: url("../../../assets/orb2/layer3-turbo.png");
+  }
+  .layer4Turbo{
+    background-image: url("../../../assets/orb2/layer4-turbo.png");
+  }
+  .layer5Turbo{
+    background-image: url("../../../assets/orb2/layer5-turbo.png");
+  }
+  .layer6Turbo{
+    background-image: url("../../../assets/orb2/layer6-turbo.png");
+  }
+  .layer7Turbo{
+    background-image: url("../../../assets/orb2/layer7-turbo.png");
+  }
+  .layer8Turbo{
+    background-image: url("../../../assets/orb2/layer8-turbo.png");
+  }
+  .layer9Turbo{
+    background-image: url("../../../assets/orb2/layer9-turbo.png");
+  }
+  .layer0Friday{
+    background-image: url("../../../assets/orb2/layer0-friday.png");
+  }
+  .layer1Friday{
+    background-image: url("../../../assets/orb2/layer1-friday.png");
+  }
+  .layer2Friday{
+    background-image: url("../../../assets/orb2/layer2-friday.png");
+  }
+  .layer3Friday{
+    background-image: url("../../../assets/orb2/layer3-friday.png");
+  }
+  .layer4Friday{
+    background-image: url("../../../assets/orb2/layer4-friday.png");
+  }
+  .layer5Friday{
+    background-image: url("../../../assets/orb2/layer5-friday.png");
+  }
+  .layer6Friday{
+    background-image: url("../../../assets/orb2/layer6-friday.png");
+  }
+  .layer7Friday{
+    background-image: url("../../../assets/orb2/layer7-friday.png");
+  }
+  .layer8Friday{
+    background-image: url("../../../assets/orb2/layer8-friday.png");
+  }
+  .layer9Friday{
+    background-image: url("../../../assets/orb2/layer9-friday.png");
+  }
 }
-
-@media (max-width: 600px) {
-    .chatPosition{
-        transition: all 1.2s;
-        display: flex;
-        // margin-left: -40vw;
-    }
-}
-@media (min-width: 600px) {
-    .chatPosition{
-        transition: all 1.2s;
-        display: flex;
-        margin-left: -15vw;
-    }
-}
-
-
 
 @keyframes verticleSpin {
   0% {
@@ -116,16 +173,16 @@
   }
 }
 @keyframes horizontalSpin {
-    0% {
-      transform: scaleY(1) rotateX(0deg);
-    }
-    50% {
-      transform: scaleY(0) rotateX(90deg);
-    }
-    100% {
-      transform: scaleY(1) rotateX(180deg);
-    }
+  0% {
+    transform: scaleY(1) rotateX(0deg);
   }
+  50% {
+    transform: scaleY(0) rotateX(90deg);
+  }
+  100% {
+    transform: scaleY(1) rotateX(180deg);
+  }
+}
 
 @keyframes jitter {
   0% {
@@ -152,22 +209,22 @@
 }
 
 @keyframes jitter2 {
-    0% {
-      transform: rotate(0deg);
-    }
-    25%{
-        transform: rotate(45deg);
-    }
-    50% {
-      transform: rotate(20deg);
-    }
-    75% {
-      transform: rotate(270deg);
-    }
-    90% {
-      ttransform: rotate(360deg);
-    }
-    100%{
-        transform: rotate(20deg);
-    }
+  0% {
+    transform: rotate(0deg);
   }
+  25% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  90% {
+    ttransform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(20deg);
+  }
+}

@@ -10,6 +10,27 @@
     font-size: calc(10px + 2vmin);
     color: white;
     overflow: hidden;
+    .containerSection{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      .mainMatrix{
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    h3 {
+      color: #01f4ff;
+      font-family: "Courier New", Courier, monospace;
+      margin-bottom: 40px;
+    }
     .welcomeMessage {
       display: flex;
       flex-direction: column;
@@ -41,6 +62,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      z-index: 1000;
       &:hover {
         transform: scale(1.1);
         box-shadow: #01f4ff 0px 0px 10px 4px;
@@ -50,12 +72,14 @@
     }
     .friday {
       background-image: url("../../assets/friday.png");
+      z-index: 1000;
       &:hover {
         box-shadow: #ff006f 0px 0px 10px 4px;
       }
     }
     .jarvisTurbo {
       background-image: url("../../assets/turbo.png");
+      z-index: 1000;
       &:hover {
         box-shadow: #ff4d00 0px 0px 10px 4px;
       }
@@ -81,6 +105,8 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      position: absolute;
+      z-index: 1000;
       cursor: pointer;
       &:hover {
         transform: scale(1.1);
@@ -104,12 +130,13 @@
         border: solid 1px #01f4ff;
         color: #cafbfe;
         padding: 5px;
+        z-index: 10;
         &:focus {
           outline: none;
           border: solid 2px #9ffaff;
         }
       }
-      button{
+      button {
         background-color: rgba(0, 0, 0, 0);
         color: #01f4ff;
         outline: none;
@@ -126,7 +153,6 @@
           cursor: pointer;
         }
       }
-
     }
 
     .workArea {
@@ -151,6 +177,7 @@
           border: 1px solid #01f4ff;
           border-radius: 7px;
           padding: 20px;
+          z-index: 20;
           .option {
             display: flex;
             flex-direction: column;
@@ -169,6 +196,7 @@
         .docs {
           padding: 10px;
           text-decoration: none;
+          z-index: 20;
           &:hover {
             scale: 1.05;
             cursor: pointer;
@@ -183,8 +211,6 @@
     }
     .showOptions {
       color: #01f4ff;
-      margin-bottom: -20vh;
-      margin-top: 20vh;
       cursor: pointer;
     }
   }
@@ -280,4 +306,8 @@
     display: flex;
     margin-left: -15vw;
   }
+}
+
+.zLift{
+  z-index: 1001;
 }

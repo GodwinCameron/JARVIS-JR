@@ -25,10 +25,16 @@ export async function speakResponse(content, setAutoPlay, FridayMode) {
 
     // Call OpenAI API (Make sure you use the right API client for browser environments)
     if (content) {
+
+      const transformedMessage = content.replace(/```([\s\S]*?)```/g, (match) => {
+        // Return the static string "code"
+        return " here's a code snippet "; 
+    });
+
       const mp3 = await openai.audio.speech.create({
         model: "tts-1",
         voice: voice,
-        input: content,
+        input: transformedMessage,
       });
       // Convert response to a Blob (browser-compatible)
       const mp3Blob = new Blob([await mp3.arrayBuffer()], {

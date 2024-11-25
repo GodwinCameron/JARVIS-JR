@@ -8,6 +8,7 @@ import classNames from "classnames";
 import turboAudio from "../../assets/audio/turbo.mp3";
 import { Link } from "react-router-dom";
 import JarvisOrbComponent from "../subcomponents/JarvisOrbComponent/JarvisOrbComponent";
+import MenuMatrix from "../MenuMatrix/MenuMatrix";
 
 const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   // CONSTANTS:
@@ -26,7 +27,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const [docs, setDocs] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
-  const [ShowLaunchOptions, setShowLaunchOptions] = useState(true);
+  const [ShowLaunchOptions, setShowLaunchOptions] = useState(false);
   const [musicRequestUrl, setMusicRequestUrl] = useState("");
   const [welcomeMessage, setWelcomeMessage] = useState(false);
   const [advancedAnimations, setAdvancedAnimations] = useState(true);
@@ -40,7 +41,7 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   const audioRef2 = useRef(null);
   const [hasApiKey, setHasApiKey] = useState(false);
   // F.R.I.D.A.Y. Mode
-  const [FridayMode, setFridayMode] = useState("unset");
+  const [FridayMode, setFridayMode] = useState("disabled");
 
   // primary useEffect hook to check for microphone permissions and browser support.
   useEffect(() => {
@@ -80,32 +81,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     setProcessing(true);
 
     if (awaitingTextInput) {
-        console.log("Processing included text input:", includedTextInput);
-        await stopRecording(
-            mediaRecorderRef,
-            audioChunksRef,
-            audioURL,
-            setAudioURL,
-            Testing_dont_use_tokens,
-            setAutoPlay,
-            setOptions,
-            setHudInterface,
-            setDocs,
-            showChat,
-            setShowChat,
-            setShowIframe,
-            setMusicRequestUrl,
-            setTurboMode,
-            turboMode,
-            setPlayTurboSound,
-            setEndRequest,
-            FridayMode,
-            includedTextInput 
-        );
-        return;
-    }
-
-    await stopRecording(
+      console.log("Processing included text input:", includedTextInput);
+      await stopRecording(
         mediaRecorderRef,
         audioChunksRef,
         audioURL,
@@ -124,9 +101,35 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
         setPlayTurboSound,
         setEndRequest,
         FridayMode,
-        includedTextInput
+        includedTextInput,
+        setFridayMode
+      );
+      return;
+    }
+
+    await stopRecording(
+      mediaRecorderRef,
+      audioChunksRef,
+      audioURL,
+      setAudioURL,
+      Testing_dont_use_tokens,
+      setAutoPlay,
+      setOptions,
+      setHudInterface,
+      setDocs,
+      showChat,
+      setShowChat,
+      setShowIframe,
+      setMusicRequestUrl,
+      setTurboMode,
+      turboMode,
+      setPlayTurboSound,
+      setEndRequest,
+      FridayMode,
+      includedTextInput,
+      setFridayMode
     );
-};
+  };
 
   // fires after a jarvis response is received.
   useEffect(() => {
@@ -220,20 +223,19 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
       alert("Please enter some text before submitting.");
       return;
     }
-  
+
     setIncludedTextInput(text); // This will trigger the useEffect above
     setIncludeTextMessage(false);
     setAwaitingTextInput(false);
   };
-  
 
-useEffect(() => {
-  console.log("Included text input changed:", includedTextInput);
-  
-  if (!awaitingTextInput && includedTextInput.trim() !== "") {
-    submitJarvisRequest();
-  }
-}, [includedTextInput]);
+  useEffect(() => {
+    console.log("Included text input changed:", includedTextInput);
+
+    if (!awaitingTextInput && includedTextInput.trim() !== "") {
+      submitJarvisRequest();
+    }
+  }, [includedTextInput]);
 
   return (
     <div className={styles.main}>
@@ -243,144 +245,168 @@ useEffect(() => {
           [styles.appHeaderTurbo]: turboMode,
         })}
       >
-        {hasApiKey ? null : (
-          <div>
-            <form onSubmit={setApiKey}>
-              <input name="apiKey" type="text" placeholder="Enter API Key" />
-              <button type="submit">Set Key</button>
-            </form>
-          </div>
-        )}
+        <div className={styles.containerSection}>
+          {hasApiKey ? null : (
+            <div>
+              <form onSubmit={setApiKey}>
+                <input name="apiKey" type="text" placeholder="Enter API Key" />
+                <button type="submit">Set Key</button>
+              </form>
+            </div>
+          )}
 
-        {FridayMode === "unset" ? (
-          <div className={styles.welcomeMessage}>
-            Enable F.R.I.D.A.Y. ?{" "}
-            <button onClick={() => enableFriday(true)}>Yes</button>
-            <button onClick={() => enableFriday(false)}>No</button>
-          </div>
-        ) : null}
+          {FridayMode === "unset" ? (
+            <div className={styles.welcomeMessage}>
+              Enable F.R.I.D.A.Y. ?{" "}
+              <button onClick={() => enableFriday(true)}>Yes</button>
+              <button onClick={() => enableFriday(false)}>No</button>
+            </div>
+          ) : null}
 
-        {welcomeMessage && (
-          <div onClick={dismissWelcome} className={styles.welcomeMessage}>
-            Hello and welcome to J-A-R-V-I-S-JR!
-            <span className={styles.welcomSubText}>
-              Hit the orb below and start chatting! hint: try asking for 'more
-              options' or 'documentation'
-            </span>
-          </div>
-        )}
-
-        {processing ? (
-          <div
-            className={classNames(styles.jarvisProcessing, {
-              [styles.chatPosition]: showChat === true,
-            })}
-            alt="logo"
-          />
-        ) : advancedAnimations && !isRecording ? (
-          <div onClick={handleJarvisRequest}>
-            <JarvisOrbComponent showChat={showChat} />
-          </div>
-        ) : !isRecording ? (
-          <div
-            onClick={handleJarvisRequest}
-            className={classNames(styles.jarvis, {
-              [styles.chatPosition]: showChat === true,
-              [styles.friday]: FridayMode === "enabled",
-              [styles.jarvisTurbo]: turboMode,
-            })}
-            alt="logo"
-          />
-        ) : awaitingTextInput ? (<h3>awaiting text input...</h3>) : (
-          <>
-            <div onClick={dismissWelcome} className="welcome-message">
-              {FridayMode === "enabled"
-                ? "F.R.I.D.A.Y. is listening..."
-                : "Jarvis is listening..."}
-              <span className="welcome-sub">
-                click the orb again to process response
+          {welcomeMessage && (
+            <div onClick={dismissWelcome} className={styles.welcomeMessage}>
+              Hello and welcome to J-A-R-V-I-S-JR!
+              <span className={styles.welcomSubText}>
+                Hit the orb below and start chatting! hint: try asking for 'more
+                options' or 'documentation'
               </span>
             </div>
-            <div
-              // =========================================================================================================****
-              onClick={submitJarvisRequest}
-              className={classNames(styles.jarvisRecord, {
-                [styles.chatPosition]: showChat === true,
-              })}
-              alt="logo"
-            />
-          </>
-        )}
+          )}
 
-        {includeTextMessage && (
-          <>
-            <div className={styles.textInputField}>
-              <textarea />
-              <button onClick={sendIncludedTextInput}>➢</button>
-            </div>
-          </>
-        )}
+          {/* Orbs begin here */}
+          <div className={styles.mainMatrix}>
+            {options === true && advancedAnimations === true ? (
+              <MenuMatrix
+                showChat={showChat}
+                setShowChat={setShowChat}
+                includeTextMessage={includeTextMessage}
+                setIncludeTextMessage={setIncludeTextMessage}
+                includedTextInput={includedTextInput}
+                setAwaitingTextInput={setAwaitingTextInput}
+                showIframe={showIframe}
+                setShowIframe={setShowIframe}
+              />
+            ) : null}
 
-        <div className={styles.workArea}>
-          <div className={styles.column}>
-            {options && (
+            {processing ? (
+              <div
+                className={classNames(styles.jarvisProcessing, {
+                  [styles.chatPosition]: showChat === true,
+                })}
+                alt="logo"
+              />
+            ) : advancedAnimations && !isRecording ? (
+              <div onClick={handleJarvisRequest}>
+                <JarvisOrbComponent showChat={showChat} turboMode={turboMode} FridayMode={FridayMode} />
+              </div>
+            ) : !isRecording ? (
+              <div
+                onClick={handleJarvisRequest}
+                className={classNames(styles.jarvis, {
+                  [styles.chatPosition]: showChat === true,
+                  [styles.friday]: FridayMode === "enabled",
+                  [styles.jarvisTurbo]: turboMode,
+                })}
+                alt="logo"
+              />
+            ) : awaitingTextInput ? (
+              <h3 className={styles.waitingText}>awaiting text input...</h3>
+            ) : (
               <>
-                <div className={styles.moreOptions}>
-                  <div onClick={displayChat} className={styles.option}>
-                    Display Live Chat Transcription
-                  </div>
-                  <Link to="/past-chats">
-                    <div className="option">View Past Chats</div>
-                  </Link>
-                  <div onClick={displayIframe} className={styles.option}>
-                    Search for a song
-                  </div>
-                  <div onClick={displayTextInput} className={styles.option}>
-                    Type / include text.
-                  </div>
+                <div onClick={dismissWelcome} className="welcome-message2">
+                  {FridayMode === "enabled"
+                    ? "F.R.I.D.A.Y. is listening..."
+                    : "Jarvis is listening..."}
+                  <span className="welcome-sub">
+                    click the orb again to process response
+                  </span>
                 </div>
+                <div
+                  // =========================================================================================================****
+                  onClick={submitJarvisRequest}
+                  className={classNames(styles.jarvisRecord, {
+                    [styles.chatPosition]: showChat === true,
+                  })}
+                  alt="logo"
+                />
               </>
             )}
-            {showChat && (
-              <ChatBoxComponent processing={processing} turboMode={turboMode} />
-            )}
+          </div>
+          {/* Orbs end here */}
+
+          {includeTextMessage && (
+            <>
+              <div className={styles.textInputField}>
+                <textarea />
+                <button className={styles.zLift} onClick={sendIncludedTextInput}>➢</button>
+              </div>
+            </>
+          )}
+
+          <div className={styles.workArea}>
+            <div className={styles.column}>
+              {options === true && advancedAnimations === false ? (
+                <>
+                  <div className={styles.moreOptions}>
+                    <div onClick={displayChat} className={styles.option}>
+                      Display Live Chat Transcription
+                    </div>
+                    <Link to="/past-chats">
+                      <div className="option">View Past Chats</div>
+                    </Link>
+                    <div onClick={displayIframe} className={styles.option}>
+                      Search for a song
+                    </div>
+                    <div onClick={displayTextInput} className={styles.option}>
+                      Type / include text.
+                    </div>
+                  </div>
+                </>
+              ) : null}
+              {showChat && (
+                <ChatBoxComponent
+                  processing={processing}
+                  turboMode={turboMode}
+                />
+              )}
+            </div>
+
+            <div className={styles.column}>
+              {docs && (
+                <Link to="/docs">
+                  <div className={`${styles.moreOptions} ${styles.docs}`}>
+                    &#47;&#47;&#47; &#61; &#62; Documentation
+                  </div>
+                </Link>
+              )}
+              {showIframe && (
+                <YouTubePlayer
+                  url={
+                    musicRequestUrl
+                      ? musicRequestUrl
+                      : "videoseries?si=L5RcgG5Mr2GfEmvN&amp;list=PLBymIW1wS9vYQSx7ZtP6YNeNOiubHI6JE&index=" +
+                        (Math.floor(Math.random() * 105) + 1)
+                  }
+                />
+              )}
+            </div>
           </div>
 
-          <div className={styles.column}>
-            {docs && (
-              <Link to="/docs">
-                <div className={`${styles.moreOptions} ${styles.docs}`}>
-                  &#47;&#47;&#47; &#61; &#62; Documentation
-                </div>
-              </Link>
-            )}
-            {showIframe && (
-              <YouTubePlayer
-                url={
-                  musicRequestUrl
-                    ? musicRequestUrl
-                    : "videoseries?si=L5RcgG5Mr2GfEmvN&amp;list=PLBymIW1wS9vYQSx7ZtP6YNeNOiubHI6JE&index=" +
-                      (Math.floor(Math.random() * 105) + 1)
-                }
-              />
-            )}
+          <audio
+            style={{ display: "none" }}
+            id="audioPlayback2"
+            ref={audioRef}
+            controls
+          ></audio>
+          <audio
+            style={{ display: "none" }}
+            ref={audioRef2}
+            src={turboAudio}
+            controls
+          ></audio>
+          <div id="cog" onClick={handleCogClick} className={styles.showOptions}>
+            &#9881;
           </div>
-        </div>
-
-        <audio
-          style={{ display: "none" }}
-          id="audioPlayback2"
-          ref={audioRef}
-          controls
-        ></audio>
-        <audio
-          style={{ display: "none" }}
-          ref={audioRef2}
-          src={turboAudio}
-          controls
-        ></audio>
-        <div id="cog" onClick={handleCogClick} className={styles.showOptions}>
-          &#9881;
         </div>
       </div>
       {ShowLaunchOptions && (

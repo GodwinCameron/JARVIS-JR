@@ -89,6 +89,20 @@ a {
   border-radius: 7px;
   padding: 10px;
 }
+.welcome-message2 {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  margin-bottom: 3.5vh;
+  font-size: 12px;
+  color: #01f4ff;
+  margin-top: 1rem;
+  margin-left: -320px;
+  font-family: monospace;
+  border: 1px solid #01f4ff;
+  border-radius: 7px;
+  padding: 10px;
+}
 .welcome-sub {
   font-size: 9px;
 }
@@ -241,6 +255,7 @@ a {
 .chatSection {
   display: flex;
   flex-direction: row;
+  z-index: 11;
 }
 
 .saveText {
