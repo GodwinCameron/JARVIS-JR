@@ -28,7 +28,7 @@ export async function speakResponse(content, setAutoPlay, FridayMode) {
 
       const transformedMessage = content.replace(/```([\s\S]*?)```/g, (match) => {
         // Return the static string "code"
-        return " here's a code snippet "; 
+        return " and the code snippet "; 
     });
 
       const mp3 = await openai.audio.speech.create({
@@ -64,3 +64,198 @@ export async function speakResponse(content, setAutoPlay, FridayMode) {
       setAutoPlay(true);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   async function synthesizeSpeech() {
+//     const endpoint = "https://texttospeech.googleapis.com/v1/text:synthesize";
+    
+//     const accessToken = await fetchAccessToken(); // Implement this function to handle OAuth
+    
+//     const data = {
+//       input: {
+//         text: "Hello, I am Jarvis, nice to meet you Mr. Stark!. Will that be all Ms. Potts?"
+//       },
+//       voice: {
+//         languageCode: "en-GB",
+//         name: "en-GB-Standard-O"
+//       },
+//       audioConfig: {
+//         audioEncoding: "LINEAR16"
+//       }
+//     };
+  
+//     try {
+//       const response = await fetch(endpoint, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'X-Goog-User-Project': '[YOUR_PROJECT_ID]', // Include your Google Cloud project ID here
+//           'Authorization': `Bearer ${accessToken}`
+//         },
+//         body: JSON.stringify(data)
+//       });
+  
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok ' + response.statusText);
+//       }
+  
+//       const audioContent = await response.json();
+//       console.log(audioContent);
+//       // Here you can process the audioContent or play the audio as needed
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export async function speakResponseGoogle(content, setAutoPlay, FridayMode) {
+//   const apiKey = localStorage.getItem("googleApiKey"); // Replace with your Google API key
+
+//   const voice = FridayMode === "enabled" ? "en-GB-Wavenet-C" : "en-GB-Wavenet-D"; // Adjust based on availability
+
+//   const baseUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`;
+
+//   const transformedMessage = content.replace(/```([\s\S]*?)```/g, (match) => {
+//     // Return the static string "code"
+//     return " here's a code snippet "; 
+// });
+  
+//   const requestBody = {
+//     input: { text: transformedMessage },
+//     voice: {
+//       languageCode: "en-GB",
+//       name: "en-GB-Standard-O"
+//     },
+//     audioConfig: { audioEncoding: "MP3" }
+//   };
+
+//   try {
+//     const response = await fetch(baseUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'X-Goog-User-Project': 'godwin-industries', // Include your Google Cloud project ID here
+//         'Authorization': `Bearer ${accessToken}`
+//       },
+//       body: JSON.stringify(requestBody)
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok ' + response.statusText);
+//     }
+
+//     const { audioContent } = await response.json();
+    
+//     // Convert base64 audio to a Blob
+//     const mp3Blob = new Blob([new Uint8Array(atob(audioContent).split('').map(char => char.charCodeAt(0)))], {
+//       type: "audio/mp3",
+//     });
+
+//     // Create a URL for the Blob
+//     const mp3Url = URL.createObjectURL(mp3Blob);
+
+//     document.getElementById("audioPlayback2").src = mp3Url;
+//     setAutoPlay(true);
+    
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }

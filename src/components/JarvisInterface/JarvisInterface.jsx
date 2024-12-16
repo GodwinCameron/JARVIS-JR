@@ -9,6 +9,7 @@ import turboAudio from "../../assets/audio/turbo.mp3";
 import { Link } from "react-router-dom";
 import JarvisOrbComponent from "../subcomponents/JarvisOrbComponent/JarvisOrbComponent";
 import MenuMatrix from "../MenuMatrix/MenuMatrix";
+import { getWeatherData } from "../../functions/WeatherData";
 
 const JarvisInterface = ({ Testing_dont_use_tokens }) => {
   // CONSTANTS:
@@ -60,6 +61,8 @@ const JarvisInterface = ({ Testing_dont_use_tokens }) => {
     if (localStorage.getItem("key")) {
       setHasApiKey(true);
     }
+
+    // getWeatherData();
   }, []);
 
   // fires when you click the main (blue) jarvis orb.
